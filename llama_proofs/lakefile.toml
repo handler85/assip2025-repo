@@ -1,0 +1,14 @@
+name = "llama_proofs"
+version = "0.1.0"
+defaultTargets = ["llama_proofs"]
+
+[[lean_lib]]
+name = "LlamaProofs"
+
+[[lean_exe]]
+name = "llama_proofs"
+root = "Main"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
