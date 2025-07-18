@@ -13,7 +13,7 @@ OUTPUT_JSON_PATH = './evaluation_results.json'
 
 # The path to the Lean 4 project you created for checking proofs
 # This directory should contain a lakefile.lean
-LEAN_PROJECT_PATH = './LeanErrorChecker/LeanErrorChecker'
+LEAN_PROJECT_PATH = './LeanErrorChecker'
 LEAN_EXEC_PATH = './LeanErrorChecker'
 
 # --- The Worker Function ---
