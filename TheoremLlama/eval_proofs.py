@@ -35,7 +35,8 @@ def evaluate_lean_proof(fl_statement, proof_string, lean_project_path, lean_exec
     else:
         # If the model only generated tactics, we can't compile it alone.
         # This is a basic handler; a more robust solution would re-add the statement.
-        full_lean_code = lean_file_header + fl_statement + "\n" + proof_string
+        return {"status": "failed", "error_message": "Invalid format: Proof does not contain a ':= by' clause."}
+        #full_lean_code = lean_file_header + fl_statement + " by" + "\n" + proof_string
 
 
     temp_file_path = os.path.join(lean_project_path, temp_filename)
@@ -48,7 +49,7 @@ def evaluate_lean_proof(fl_statement, proof_string, lean_project_path, lean_exec
         # Run the Lean compiler on the file.
         # The command must be run from within the project directory.
         result = subprocess.run(
-            ['lean', temp_filename],
+            ['lake', 'env', 'lean', temp_filename],
             capture_output=True,
             text=True,
             cwd=lean_exec_path, # Execute the command from the project root
