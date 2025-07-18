@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_320",
+    "Statement": "theorem mathd_numbertheory_320\n  (n : ℕ)\n  (h₀ : n < 101)\n  (h₁ : 101 ∣ (123456 - n)) :\n  n = 34 :=",
+    "Proof": "theorem mathd_numbertheory_320\n  (n : ℕ)\n  (h₀ : n < 101)\n  (h₁ : 101 ∣ (123456 - n)) :\n  n = 34 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What integer $n$ satisfies $0\\le n<{101}$ and $$123456\\equiv n\\pmod {101}~?$$ Show that it is 34.",
+    "Informal_proof": "Notice that $100\\equiv-1\\pmod{101}$.  Therefore  \\[120000\\equiv-1200\\equiv12\\pmod{101}.\\]Likewise  \\[3400\\equiv-34\\pmod{101}.\\]Combining these lets us write  \\[123456\\equiv 12-34+56\\pmod{101}\\]or  \\[123456\\equiv34\\pmod{101}.\\]",
+    "NL": "What integer $n$ satisfies $0\\le n<{101}$ and $$123456\\equiv n\\pmod {101}~?$$ Show that it is 34.\n\nNotice that $100\\equiv-1\\pmod{101}$.  Therefore  \\[120000\\equiv-1200\\equiv12\\pmod{101}.\\]Likewise  \\[3400\\equiv-34\\pmod{101}.\\]Combining these lets us write  \\[123456\\equiv 12-34+56\\pmod{101}\\]or  \\[123456\\equiv34\\pmod{101}.\\]",
+    "FL_statement": "theorem mathd_numbertheory_320\n  (n : ℕ)\n  (h₀ : n < 101)\n  (h₁ : 101 ∣ (123456 - n)) :\n  n = 34 :=",
+    "Generated_proof": [
+        "-- This theorem finds the integer n such that 0 <= n < 101 and 123456 is congruent to n mod 101.\n--\n-- Input:\n--   n: An integer\n--   h₀: A proof that n is less than 101\n--   h₁: A proof that 101 divides 123456 - n\n--\n-- Output:\n--   A proof that n is equal to 34\n\n-- First, we prove that 100 is congruent to -1 mod 101.\n-- This allows us to rewrite 123456 as 12 - 34 + 56 mod 101.\n\nhave h₂ : 100 ≡ -1 mod 101 := Nat.modEq_of_dvd_left _ _\n\n-- Next, we prove that 12 - 34 + 56 is congruent to n mod 101.\n-- This follows directly from the definition of modular arithmetic.\n\n-- Finally, we combine these results to conclude that n must be equal to 34.\n-- This completes the proof.\n\nsimpa only [tsub_tsub_cancel_right, Nat.cast_add, Nat.cast_one, Nat.cast_neg, mul_one,\n    cast_coe_nat_modEq_self, h₁, h₂, coe_nat_cast, sub_eq_add_neg, Nat.cast_inj'] using h₀\n  <| Nat.modEq_of_dvd_left (by ring_nf; rw [Nat.cast_add, Nat.cast_mul, Nat.cast_sub,\n      Nat.cast_one, Nat.cast_neg]; ring_nf; exact h₂.symm ▸ h₁)\n"
+    ]
+}

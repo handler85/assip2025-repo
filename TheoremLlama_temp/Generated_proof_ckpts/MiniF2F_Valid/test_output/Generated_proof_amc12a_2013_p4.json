@@ -1,0 +1,14 @@
+{
+    "Name": "amc12a_2013_p4",
+    "Statement": "theorem amc12a_2013_p4 :\n  (2^2014 + 2^2012) / (2^2014 - 2^2012) = (5:ℝ) / 3 :=",
+    "Proof": "theorem amc12a_2013_p4 :\n  (2^2014 + 2^2012) / (2^2014 - 2^2012) = (5:ℝ) / 3 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the value of $\\frac{2^{2014}+2^{2012}}{2^{2014}-2^{2012}}?$\n\n$ \\textbf{(A)}\\ -1\\qquad\\textbf{(B)}\\ 1\\qquad\\textbf{(C)}\\ \\frac{5}{3}\\qquad\\textbf{(D)}\\ 2013\\qquad\\textbf{(E)}\\ 2^{4024} $ Show that it is \\textbf{(C)} \\frac{5}{3}.",
+    "Informal_proof": "$\\frac{2^{2014}+2^{2012}}{2^{2014}-2^{2012}}$\n\nWe can factor a ${2^{2012}}$ out of the numerator and denominator to obtain\n\n$\\frac{2^{2012}*(2^2+1)}{2^{2012}*(2^2-1)}$\n\nThe ${2^{2012}}$ cancels, so we get \n\n$\\frac{(2^2+1)}{(2^2-1)}=\\frac{5}{3}$, which is $C$",
+    "NL": "What is the value of $\\frac{2^{2014}+2^{2012}}{2^{2014}-2^{2012}}?$\n\n$ \\textbf{(A)}\\ -1\\qquad\\textbf{(B)}\\ 1\\qquad\\textbf{(C)}\\ \\frac{5}{3}\\qquad\\textbf{(D)}\\ 2013\\qquad\\textbf{(E)}\\ 2^{4024} $ Show that it is \\textbf{(C)} \\frac{5}{3}.\n\n$\\frac{2^{2014}+2^{2012}}{2^{2014}-2^{2012}}$\n\nWe can factor a ${2^{2012}}$ out of the numerator and denominator to obtain\n\n$\\frac{2^{2012}*(2^2+1)}{2^{2012}*(2^2-1)}$\n\nThe ${2^{2012}}$ cancels, so we get \n\n$\\frac{(2^2+1)}{(2^2-1)}=\\frac{5}{3}$, which is $C$",
+    "FL_statement": "theorem amc12a_2013_p4 :\n  (2^2014 + 2^2012) / (2^2014 - 2^2012) = (5:ℝ) / 3 :=",
+    "Generated_proof": [
+        "-- What is the value of $\\frac{2^{2014}+2^{2012}}{2^{2014}-2^{2012}}$?\n--\n-- $ \\textbf{(A)}\\ -1\\qquad\\textbf{(B)}\\ 1\\qquad\\textbf{(C)}\\ \\frac{5}{3}\\qquad\\textbf{(D)}\\ 2013\\qquad\\textbf{(E)}\\ 2^{4024} $ Show that it is \\textbf{(C)} \\frac{5}{3}.\n\n-- We can factor a ${2^{2012}}$ out of the numerator and denominator to obtain\n\n-- $\\frac{2^{2012}*(2^2+1)}{2^{2012}*(2^2-1)}$\n\n-- The ${2^{2012}}$ cancels, so we get \n\n-- $\\frac{(2^2+1)}{(2^2-1)}=\\frac{5}{3}$, which is $C$\n\ntheorem amc12a_2013_p4 :\n  (2^2014 + 2^2012) / (2^2014 - 2^2012) = (5:ℝ) / 3 := by\n  have := pow_succ (2:ℝ) _\n  push_cast[ℝ]\n  convert mul_right_inj₀.1 <| by rw [← sub_sub, this, mul_right_sub, one_mul, mul_one, ←\n      sub_sub]; linarith [zero_lt_two, succ_pos']\n  linarith [two_pow, lt_tsub_iff_left.mpr (by decide)]"
+    ]
+}

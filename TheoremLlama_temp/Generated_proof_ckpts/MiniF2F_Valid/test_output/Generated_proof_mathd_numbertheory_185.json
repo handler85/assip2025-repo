@@ -1,0 +1,12 @@
+{
+    "Name": "mathd_numbertheory_185",
+    "Statement": "theorem mathd_numbertheory_185\n  (n : ℕ)\n  (h₀ : n % 5 = 3) :\n  (2 * n) % 5 = 1 :=",
+    "Proof": "theorem mathd_numbertheory_185\n  (n : ℕ)\n  (h₀ : n % 5 = 3) :\n  (2 * n) % 5 = 1 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "When a number is divided by 5, the remainder is 3. What is the remainder when twice the number is divided by 5? Show that it is 1.",
+    "Informal_proof": "If our number is $n$, then $n\\equiv 3\\pmod5$.  This tells us that  \\[2n=n+n\\equiv 3+3\\equiv1\\pmod5.\\] The remainder is $1$ when the number is divided by 5.",
+    "NL": "When a number is divided by 5, the remainder is 3. What is the remainder when twice the number is divided by 5? Show that it is 1.\n\nIf our number is $n$, then $n\\equiv 3\\pmod5$.  This tells us that  \\[2n=n+n\\equiv 3+3\\equiv1\\pmod5.\\] The remainder is $1$ when the number is divided by 5.",
+    "FL_statement": "theorem mathd_numbertheory_185\n  (n : ℕ)\n  (h₀ : n % 5 = 3) :\n  (2 * n) % 5 = 1 :=",
+    "Generated_proof": []
+}

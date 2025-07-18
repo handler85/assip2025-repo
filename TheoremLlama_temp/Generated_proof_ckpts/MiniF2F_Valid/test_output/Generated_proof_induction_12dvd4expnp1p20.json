@@ -1,0 +1,14 @@
+{
+    "Name": "induction_12dvd4expnp1p20",
+    "Statement": "theorem induction_12dvd4expnp1p20\n  (n : ℕ) :\n  12 ∣ 4^(n+1) + 20 :=",
+    "Proof": "theorem induction_12dvd4expnp1p20\n  (n : ℕ) :\n  12 ∣ 4^(n+1) + 20 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Show that for any natural number $n$, 12 divides $4^{n+1} + 20$.",
+    "Informal_proof": "We have that $4 \\equiv 4 \\mod 12$ and $4^2 \\equiv 4 \\mod 12$. By immediate induction on $n$, we have that for every $n \\geq 1$, $4^n \\equiv 4 \\mod 12$. As a result, for any natural number $n$, $4^{n+1} + 20 \\equiv 4 + 20 \\mod 12$. Since $12$ divides $24$, $12$ divides $4^{n+1} + 20$.",
+    "NL": "Show that for any natural number $n$, 12 divides $4^{n+1} + 20$.\n\nWe have that $4 \\equiv 4 \\mod 12$ and $4^2 \\equiv 4 \\mod 12$. By immediate induction on $n$, we have that for every $n \\geq 1$, $4^n \\equiv 4 \\mod 12$. As a result, for any natural number $n$, $4^{n+1} + 20 \\equiv 4 + 20 \\mod 12$. Since $12$ divides $24$, $12$ divides $4^{n+1} + 20$.",
+    "FL_statement": "theorem induction_12dvd4expnp1p20\n  (n : ℕ) :\n  12 ∣ 4^(n+1) + 20 :=",
+    "Generated_proof": [
+        "-- Show that for any natural number `n`, 12 divides 4^(n+1) + 20.\n--\n-- We proceed by induction on `n`.\n-- Base case: `n = 0`\n--   * 4^1 + 20 = 4 + 20 = 24, which is divisible by 12.\n-- Inductive step: Assume the statement holds for some `n`.\n--   * We need to show that it also holds for `n + 1`.\n--     * Using the inductive hypothesis, we know that 12 divides 4^(n+1) + 20.\n--     * Applying 4 times the power rule to the left-hand side, we obtain"
+    ]
+}

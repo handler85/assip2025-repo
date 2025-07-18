@@ -1,0 +1,12 @@
+{
+    "Name": "mathd_algebra_452",
+    "Statement": "theorem mathd_algebra_452\n  (a : ℕ → ℝ)\n  (h₀ : ∀ n, a (n + 2) - a (n + 1) = a (n + 1) - a n)\n  (h₁ : a 1 = 2 / 3)\n  (h₂ : a 9 = 4 / 5) :\n  a 5 = 11 / 15 :=",
+    "Proof": "theorem mathd_algebra_452\n  (a : ℕ → ℝ)\n  (h₀ : ∀ n, a (n + 2) - a (n + 1) = a (n + 1) - a n)\n  (h₁ : a 1 = 2 / 3)\n  (h₂ : a 9 = 4 / 5) :\n  a 5 = 11 / 15 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "The first and ninth terms of an arithmetic sequence are $\\frac23$ and $\\frac45$, respectively. What is the fifth term? Show that it is \\frac{11}{15}.",
+    "Informal_proof": "Since the fifth term is halfway between the first term and ninth term, it is simply the average of these terms, or \\[\\frac{2/3 + 4/5}{2} = \\frac{11}{15}.\\]",
+    "NL": "The first and ninth terms of an arithmetic sequence are $\\frac23$ and $\\frac45$, respectively. What is the fifth term? Show that it is \\frac{11}{15}.\n\nSince the fifth term is halfway between the first term and ninth term, it is simply the average of these terms, or \\[\\frac{2/3 + 4/5}{2} = \\frac{11}{15}.\\]",
+    "FL_statement": "theorem mathd_algebra_452\n  (a : ℕ → ℝ)\n  (h₀ : ∀ n, a (n + 2) - a (n + 1) = a (n + 1) - a n)\n  (h₁ : a 1 = 2 / 3)\n  (h₂ : a 9 = 4 / 5) :\n  a 5 = 11 / 15 :=",
+    "Generated_proof": []
+}

@@ -1,0 +1,14 @@
+{
+    "Name": "amc12a_2009_p6",
+    "Statement": "theorem amc12a_2009_p6\n  (m n p q : ℝ)\n  (h₀ : p = 2 ^ m)\n  (h₁ : q = 3 ^ n) :\n  p^(2 * n) * (q^m) = 12^(m * n) :=",
+    "Proof": "theorem amc12a_2009_p6\n  (m n p q : ℝ)\n  (h₀ : p = 2 ^ m)\n  (h₁ : q = 3 ^ n) :\n  p^(2 * n) * (q^m) = 12^(m * n) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Suppose that $P = 2^m$ and $Q = 3^n$. Which of the following is equal to $12^{mn}$ for every pair of integers $(m,n)$?\n\n$\\textbf{(A)}\\ P^2Q \\qquad \\textbf{(B)}\\ P^nQ^m \\qquad \\textbf{(C)}\\ P^nQ^{2m} \\qquad \\textbf{(D)}\\ P^{2m}Q^n \\qquad \\textbf{(E)}\\ P^{2n}Q^m$ Show that it is \\bold{E)} P^{2n} Q^m.",
+    "Informal_proof": "We have $12^{mn} = (2\\cdot 2\\cdot 3)^{mn} = 2^{2mn} \\cdot 3^{mn} = (2^m)^{2n} \\cdot (3^n)^m = \\bold{E)} P^{2n} Q^m$.",
+    "NL": "Suppose that $P = 2^m$ and $Q = 3^n$. Which of the following is equal to $12^{mn}$ for every pair of integers $(m,n)$?\n\n$\\textbf{(A)}\\ P^2Q \\qquad \\textbf{(B)}\\ P^nQ^m \\qquad \\textbf{(C)}\\ P^nQ^{2m} \\qquad \\textbf{(D)}\\ P^{2m}Q^n \\qquad \\textbf{(E)}\\ P^{2n}Q^m$ Show that it is \\bold{E)} P^{2n} Q^m.\n\nWe have $12^{mn} = (2\\cdot 2\\cdot 3)^{mn} = 2^{2mn} \\cdot 3^{mn} = (2^m)^{2n} \\cdot (3^n)^m = \\bold{E)} P^{2n} Q^m$.",
+    "FL_statement": "theorem amc12a_2009_p6\n  (m n p q : ℝ)\n  (h₀ : p = 2 ^ m)\n  (h₁ : q = 3 ^ n) :\n  p^(2 * n) * (q^m) = 12^(m * n) :=",
+    "Generated_proof": [
+        "-- Suppose that P = 2^m and Q = 3^n. \n-- Which of the following is equal to 12^(mn) for every pair of integers (m,n)?\n-- \n-- A) P^2Q       B) P^nQ^m       C) P^nQ^(2m)       D) P^(2m)Q^n       E) P^(2n)Q^m\n-- \n-- Show that it is E) P^(2n)Q^m.\n-- \n-- We have 12^(mn) = (2*2*3)^(mn) = 2^(2mn) * 3^(mn) = (2^m)^(2n) * (3^n)^m = E) P^(2n)Q^m.\n--\n-- Proof:\n-- \n-- Apply `simp_all` to perform the calculation.\n-- \n-- # End of Proof\n\n-- Define constants for the powers of 2 and 3.\n\n-- Define constants for the variables m and n.\n\n-- Define constants for the expressions p^(2n) * q^m and 12^(mn).\n\n-- Rewrite the expression 12^(mn) as (2*2*3)^(mn).\n\n-- Simplify the expression (2*2*3)^(mn) as 2^(2mn) * 3^(mn).\n\n-- Rewrite the expression 2^(2mn) * 3^(mn) as (2^m)^(2n) * (3^n)^m.\n\n-- Rewrite the expression (2^m)^(2n) * (3^n)^m as p^(2n) * q^m.\n\n-- Use `ring` tactic to finish the proof.\n\n-- # End of Proof\n\n-- Apply `Eq.refl` tactic to create a reflexive equality.\n\n-- # End of Proof"
+    ]
+}

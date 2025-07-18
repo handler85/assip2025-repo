@@ -1,0 +1,12 @@
+{
+    "Name": "numbertheory_aoddbdiv4asqpbsqmod8eq1",
+    "Statement": "theorem numbertheory_aoddbdiv4asqpbsqmod8eq1\n  (a : ℤ)\n  (b : ℤ)\n  (h₀ : Odd a)\n  (h₁ : 4 ∣ b)\n  (h₂ : b >= 0) :\n  (a^2 + b^2) % 8 = 1 :=",
+    "Proof": "theorem numbertheory_aoddbdiv4asqpbsqmod8eq1\n  (a : ℤ)\n  (b : ℤ)\n  (h₀ : Odd a)\n  (h₁ : 4 ∣ b)\n  (h₂ : b >= 0) :\n  (a^2 + b^2) % 8 = 1 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Let $a$ be an odd integer number and $b$ be a natural number such that $4 \\mid b$. Show that $a^2 + b^2 \\equiv 1 \\mod 8$.",
+    "Informal_proof": "Since $4 \\mid b$, we know that $b \\equiv 0 \\pmod 8$ or $b \\equiv 4 \\pmod 8$, hence $b^2 \\equiv 0^2 \\equiv 0 \\pmod 8$ or $b^2 \\equiv 4^2 \\equiv 0 \\pmod 8$.\nBecause $a$ is odd, we know that $a \\pmod 8 \\in \\{1, 3, 5, 7\\}$. Hence $a^2 \\pmod 8 \\in \\{1^2\\pmod 8, 3^2\\pmod 8, 5^2\\pmod 8, 7^2\\pmod 8\\} = \\{1\\}$. \nTherefore $a^2 + b^2 \\equiv 1 + 0 \\equiv 1 \\pmod 8$.",
+    "NL": "Let $a$ be an odd integer number and $b$ be a natural number such that $4 \\mid b$. Show that $a^2 + b^2 \\equiv 1 \\mod 8$.\n\nSince $4 \\mid b$, we know that $b \\equiv 0 \\pmod 8$ or $b \\equiv 4 \\pmod 8$, hence $b^2 \\equiv 0^2 \\equiv 0 \\pmod 8$ or $b^2 \\equiv 4^2 \\equiv 0 \\pmod 8$.\nBecause $a$ is odd, we know that $a \\pmod 8 \\in \\{1, 3, 5, 7\\}$. Hence $a^2 \\pmod 8 \\in \\{1^2\\pmod 8, 3^2\\pmod 8, 5^2\\pmod 8, 7^2\\pmod 8\\} = \\{1\\}$. \nTherefore $a^2 + b^2 \\equiv 1 + 0 \\equiv 1 \\pmod 8$.",
+    "FL_statement": "theorem numbertheory_aoddbdiv4asqpbsqmod8eq1\n  (a : ℤ)\n  (b : ℤ)\n  (h₀ : Odd a)\n  (h₁ : 4 ∣ b)\n  (h₂ : b >= 0) :\n  (a^2 + b^2) % 8 = 1 :=",
+    "Generated_proof": []
+}

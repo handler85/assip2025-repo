@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_17",
+    "Statement": "theorem mathd_algebra_17\n  (a : ℝ)\n  (h₀ : Real.sqrt (4 + Real.sqrt (16 + 16 * a)) + Real.sqrt (1 + Real.sqrt (1 + a)) = 6) :\n  a = 8 :=",
+    "Proof": "theorem mathd_algebra_17\n  (a : ℝ)\n  (h₀ : Real.sqrt (4 + Real.sqrt (16 + 16 * a)) + Real.sqrt (1 + Real.sqrt (1 + a)) = 6) :\n  a = 8 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Solve for $a$: $$\\sqrt{4+\\sqrt{16+16a}}+ \\sqrt{1+\\sqrt{1+a}} = 6.$$ Show that it is 8.",
+    "Informal_proof": "We can factor a constant out of the first radical:\n\\begin{align*}\n\\sqrt{4+\\sqrt{16+16a}} &= \\sqrt{4+\\sqrt{16(1+a)}}\\\\\n&= \\sqrt{4+4\\sqrt{1+a}}\\\\\n&= \\sqrt{4(1+\\sqrt{1+a})}\\\\\n&= 2\\sqrt{1+\\sqrt{1+a}}\n\\end{align*}Then, we can combine like terms and solve:\n\n\\begin{align*}\n2\\sqrt{1+\\sqrt{1+a}}+ \\sqrt{1+\\sqrt{1+a}} &= 6\\\\\n\\Rightarrow 3\\sqrt{1+\\sqrt{1+a}} &= 6\\\\\n\\Rightarrow \\sqrt{1+\\sqrt{1+a}} &= 2\\\\\n\\Rightarrow 1+\\sqrt{1+a} &= 4\\\\\n\\Rightarrow \\sqrt{1+a} &= 3\\\\\n\\Rightarrow 1+a &= 9\\\\\n\\Rightarrow a &= 8\n\\end{align*}",
+    "NL": "Solve for $a$: $$\\sqrt{4+\\sqrt{16+16a}}+ \\sqrt{1+\\sqrt{1+a}} = 6.$$ Show that it is 8.\n\nWe can factor a constant out of the first radical:\n\\begin{align*}\n\\sqrt{4+\\sqrt{16+16a}} &= \\sqrt{4+\\sqrt{16(1+a)}}\\\\\n&= \\sqrt{4+4\\sqrt{1+a}}\\\\\n&= \\sqrt{4(1+\\sqrt{1+a})}\\\\\n&= 2\\sqrt{1+\\sqrt{1+a}}\n\\end{align*}Then, we can combine like terms and solve:\n\n\\begin{align*}\n2\\sqrt{1+\\sqrt{1+a}}+ \\sqrt{1+\\sqrt{1+a}} &= 6\\\\\n\\Rightarrow 3\\sqrt{1+\\sqrt{1+a}} &= 6\\\\\n\\Rightarrow \\sqrt{1+\\sqrt{1+a}} &= 2\\\\\n\\Rightarrow 1+\\sqrt{1+a} &= 4\\\\\n\\Rightarrow \\sqrt{1+a} &= 3\\\\\n\\Rightarrow 1+a &= 9\\\\\n\\Rightarrow a &= 8\n\\end{align*}",
+    "FL_statement": "theorem mathd_algebra_17\n  (a : ℝ)\n  (h₀ : Real.sqrt (4 + Real.sqrt (16 + 16 * a)) + Real.sqrt (1 + Real.sqrt (1 + a)) = 6) :\n  a = 8 :=",
+    "Generated_proof": [
+        "-- **Theorem:** mathd_algebra_17\n--\n-- **Statement:** Let $a$ be a real number such that\n--"
+    ]
+}

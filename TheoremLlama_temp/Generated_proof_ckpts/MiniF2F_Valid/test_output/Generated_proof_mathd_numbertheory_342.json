@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_342",
+    "Statement": "theorem mathd_numbertheory_342 :\n  54 % 6 = 0 :=",
+    "Proof": "theorem mathd_numbertheory_342 :\n  54 % 6 = 0 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Determine the remainder of 54 (mod 6). Show that it is 0.",
+    "Informal_proof": "$54 = 9 \\cdot 6 + 0 \\Rightarrow 54 \\equiv 0 \\pmod{6}$.",
+    "NL": "Determine the remainder of 54 (mod 6). Show that it is 0.\n\n$54 = 9 \\cdot 6 + 0 \\Rightarrow 54 \\equiv 0 \\pmod{6}$.",
+    "FL_statement": "theorem mathd_numbertheory_342 :\n  54 % 6 = 0 :=",
+    "Generated_proof": [
+        "-- Calculate the remainder when 54 is divided by 6.\n\n-- First, express 54 as a multiple of 6 plus another value, r.\n-- Here, 54 is expressed as 9 times 6, leaving 0.\n\n-- Then, rewrite the remainder as a modular arithmetic expression,\n-- stating that 54 is congruent to 0 modulo 6.\n\n-- Finally, use the ZMod.int_cast_zmod_val lemma to convert the modular\n-- result back into a natural number. Since 0 is congruent to itself\n-- modulo any number, this conversion leaves us with the desired result:\n\n-- 0.\n--\n\n-- Let's break down the steps step-by-step for clarity:\n\n-- 1. `nlinarith`: The tactic performs a simple calculation involving\n--    natural numbers (`ℕ`).\n\n-- 2. `(by decide; split; assumption)`:\n\n--     - `by decide`: Apply default tactics (e.g., `decide`) before\n--       attempting more specific approaches.\n\n--     - `split; assumption`: Split the goal into two parts: one for each\n--       side of the modular equation and assume the other side holds.\n\n-- 3. `ring`: Perform a series of algebraic manipulations using\n--    ring-theoretic properties.\n\n-- These steps demonstrate how we can break down the problem into smaller\n-- pieces, leveraging different tactics and lemmas to achieve the desired\n-- result.\n--\n-- The following code implements these steps:\n"
+    ]
+}

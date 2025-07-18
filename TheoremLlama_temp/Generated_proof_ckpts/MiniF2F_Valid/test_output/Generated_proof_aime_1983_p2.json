@@ -1,0 +1,12 @@
+{
+    "Name": "aime_1983_p2",
+    "Statement": "theorem aime_1983_p2\n  (x p : ℝ)\n  (f : ℝ → ℝ)\n  (h₀ : 0 < p ∧ p < 15)\n  (h₁ : p ≤ x ∧ x ≤ 15)\n  (h₂ : f x = abs (x - p) + abs (x - 15) + abs (x - p - 15)) :\n  15 ≤ f x :=",
+    "Proof": "theorem aime_1983_p2\n  (x p : ℝ)\n  (f : ℝ → ℝ)\n  (h₀ : 0 < p ∧ p < 15)\n  (h₁ : p ≤ x ∧ x ≤ 15)\n  (h₂ : f x = abs (x - p) + abs (x - 15) + abs (x - p - 15)) :\n  15 ≤ f x := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Let $f(x)=|x-p|+|x-15|+|x-p-15|$, where $0 < p < 15$. Determine the [[minimum]] value taken by $f(x)$ for $x$ in the [[interval]] $p \\leq x\\leq15$. Show that it is 015.",
+    "Informal_proof": "It is best to get rid of the [[absolute value]]s first. \n\nUnder the given circumstances, we notice that $|x-p|=x-p$, $|x-15|=15-x$, and $|x-p-15|=15+p-x$.\n\nAdding these together, we find that the sum is equal to $30-x$, which attains its minimum value (on the given interval $p \\leq x \\leq 15$) when $x=15$, giving a minimum of $015$.",
+    "NL": "Let $f(x)=|x-p|+|x-15|+|x-p-15|$, where $0 < p < 15$. Determine the [[minimum]] value taken by $f(x)$ for $x$ in the [[interval]] $p \\leq x\\leq15$. Show that it is 015.\n\nIt is best to get rid of the [[absolute value]]s first. \n\nUnder the given circumstances, we notice that $|x-p|=x-p$, $|x-15|=15-x$, and $|x-p-15|=15+p-x$.\n\nAdding these together, we find that the sum is equal to $30-x$, which attains its minimum value (on the given interval $p \\leq x \\leq 15$) when $x=15$, giving a minimum of $015$.",
+    "FL_statement": "theorem aime_1983_p2\n  (x p : ℝ)\n  (f : ℝ → ℝ)\n  (h₀ : 0 < p ∧ p < 15)\n  (h₁ : p ≤ x ∧ x ≤ 15)\n  (h₂ : f x = abs (x - p) + abs (x - 15) + abs (x - p - 15)) :\n  15 ≤ f x :=",
+    "Generated_proof": []
+}

@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_293",
+    "Statement": "theorem mathd_algebra_293\n  (x : NNReal) :\n  Real.sqrt (60 * x) * Real.sqrt (12 * x) * Real.sqrt (63 * x) = 36 * x * Real.sqrt (35 * x) :=",
+    "Proof": "theorem mathd_algebra_293\n  (x : NNReal) :\n  Real.sqrt (60 * x) * Real.sqrt (12 * x) * Real.sqrt (63 * x) = 36 * x * Real.sqrt (35 * x) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Calculate $\\sqrt{60x} \\cdot \\sqrt{12x} \\cdot \\sqrt{63x}$ . Express your answer in simplest radical form in terms of $x$.\n\nNote: When entering a square root with more than one character, you must use parentheses or brackets.  For example, you should enter $\\sqrt{14}$ as \"sqrt(14)\" or \"sqrt{14}\". Show that it is 36x \\sqrt{35x}.",
+    "Informal_proof": "Writing everything in terms of prime factorizations, the given expression is  \\begin{align*}\n&\\sqrt{3 \\cdot 5 \\cdot 2^2 \\cdot 3 \\cdot 2^2 \\cdot 7 \\cdot 3^2 \\cdot x^3} \\\\\n& \\qquad = \\sqrt{(3^4 \\cdot 2^4 \\cdot x^2) \\cdot (5 \\cdot 7 \\cdot x)} \\\\\n& \\qquad = 36x \\sqrt{35x}.\n\\end{align*}",
+    "NL": "Calculate $\\sqrt{60x} \\cdot \\sqrt{12x} \\cdot \\sqrt{63x}$ . Express your answer in simplest radical form in terms of $x$.\n\nNote: When entering a square root with more than one character, you must use parentheses or brackets.  For example, you should enter $\\sqrt{14}$ as \"sqrt(14)\" or \"sqrt{14}\". Show that it is 36x \\sqrt{35x}.\n\nWriting everything in terms of prime factorizations, the given expression is  \\begin{align*}\n&\\sqrt{3 \\cdot 5 \\cdot 2^2 \\cdot 3 \\cdot 2^2 \\cdot 7 \\cdot 3^2 \\cdot x^3} \\\\\n& \\qquad = \\sqrt{(3^4 \\cdot 2^4 \\cdot x^2) \\cdot (5 \\cdot 7 \\cdot x)} \\\\\n& \\qquad = 36x \\sqrt{35x}.\n\\end{align*}",
+    "FL_statement": "theorem mathd_algebra_293\n  (x : NNReal) :\n  Real.sqrt (60 * x) * Real.sqrt (12 * x) * Real.sqrt (63 * x) = 36 * x * Real.sqrt (35 * x) :=",
+    "Generated_proof": [
+        "-- Calculate sqrt(60*x)*sqrt(12*x)*sqrt(63*x).\n-- Express your answer in simplest radical form in terms of x.\n\n-- Show that it is 36x*sqrt(35*x).\n\n-- Writing everything in terms of prime factorizations, the given expression is\n--\n--     sqrt(3*5*2^2*3*2^2*7*3^2*x^3)\n--   = sqrt((3^4*2^4*x^2)*(5*7*x))\n--   = 36x*sqrt(35*x).\n\n-- We can verify this calculation in Lean using the following code:\n"
+    ]
+}

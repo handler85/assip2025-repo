@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_34",
+    "Statement": "theorem mathd_numbertheory_34\n  (x: ℕ)\n  (h₀ : x < 100)\n  (h₁ : x*9 % 100 = 1) :\n  x = 89 :=",
+    "Proof": "theorem mathd_numbertheory_34\n  (x: ℕ)\n  (h₀ : x < 100)\n  (h₁ : x*9 % 100 = 1) :\n  x = 89 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find $9^{-1} \\pmod{100}$, as a residue modulo 100.  (Give an answer between 0 and 99, inclusive.) Show that it is 89.",
+    "Informal_proof": "Note that $9 \\cdot 11 \\equiv 99 \\equiv -1 \\pmod{100}$.  Then $9 \\cdot (-11) \\equiv -99 \\equiv 1 \\pmod{100}$, so $9^{-1} \\equiv -11 \\equiv 89 \\pmod{100}$.",
+    "NL": "Find $9^{-1} \\pmod{100}$, as a residue modulo 100.  (Give an answer between 0 and 99, inclusive.) Show that it is 89.\n\nNote that $9 \\cdot 11 \\equiv 99 \\equiv -1 \\pmod{100}$.  Then $9 \\cdot (-11) \\equiv -99 \\equiv 1 \\pmod{100}$, so $9^{-1} \\equiv -11 \\equiv 89 \\pmod{100}$.",
+    "FL_statement": "theorem mathd_numbertheory_34\n  (x: ℕ)\n  (h₀ : x < 100)\n  (h₁ : x*9 % 100 = 1) :\n  x = 89 :=",
+    "Generated_proof": [
+        "-- **Theorem:** Find the multiplicative inverse of 9 modulo 100.\n--\n-- **Proof:**\n-- \n-- We know that `x * 9 ≡ 1 mod 100` by assumption (`h₁`). \n-- \n-- We rewrite this using the definition of modular equivalence:"
+    ]
+}

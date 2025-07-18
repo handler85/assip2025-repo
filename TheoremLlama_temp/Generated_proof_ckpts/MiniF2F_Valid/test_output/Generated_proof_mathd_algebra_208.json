@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_208",
+    "Statement": "theorem mathd_algebra_208 :\n  Real.sqrt 1000000 - 1000000^(1/3) = 900 :=",
+    "Proof": "theorem mathd_algebra_208 :\n  Real.sqrt 1000000 - 1000000^(1/3) = 900 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the value of $\\sqrt{1,\\!000,\\!000} - \\sqrt[3]{1,\\!000,\\!000}$? Show that it is 900.",
+    "Informal_proof": "We have   \\begin{align*}\n\\sqrt{1,\\!000,\\!000} - \\sqrt[3]{1,\\!000,\\!000}&= \\sqrt{10^6} - \\sqrt[3]{10^6} \\\\\n&= (10^6)^{\\frac{1}{2}} - (10^6)^{\\frac{1}{3}}\\\\\n&=10^{6\\cdot \\frac{1}{2}} - 10^{6\\cdot \\frac{1}{3}} \\\\\n&= 10^3 - 10^2 = 1000-100 =900.\n\\end{align*}",
+    "NL": "What is the value of $\\sqrt{1,\\!000,\\!000} - \\sqrt[3]{1,\\!000,\\!000}$? Show that it is 900.\n\nWe have   \\begin{align*}\n\\sqrt{1,\\!000,\\!000} - \\sqrt[3]{1,\\!000,\\!000}&= \\sqrt{10^6} - \\sqrt[3]{10^6} \\\\\n&= (10^6)^{\\frac{1}{2}} - (10^6)^{\\frac{1}{3}}\\\\\n&=10^{6\\cdot \\frac{1}{2}} - 10^{6\\cdot \\frac{1}{3}} \\\\\n&= 10^3 - 10^2 = 1000-100 =900.\n\\end{align*}",
+    "FL_statement": "theorem mathd_algebra_208 :\n  Real.sqrt 1000000 - 1000000^(1/3) = 900 :=",
+    "Generated_proof": [
+        "-- Given: 1,000,000\n-- Asked: sqrt(1,000,000) - 1/3 root(1,000,000)\n\n-- Simplify expressions\nsimp only [Real.sqroot_coe_nat, Real.cpow_coe_nat]\n\n-- Apply properties to simplify further\nring_nf\n-- porting note: added `(by decide)` because `rfl`\ncongr; ext (_ _); try decide <;> decide by decide\n\n-- Apply properties to simplify further\nring_nf\n\n-- Ported note: Added `try decide <;> decide by decide`\napply le_antisymm;\ntry decide <;>\ndecide by decide\n-- End Ported note"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_196",
+    "Statement": "theorem mathd_algebra_196\n  (S : Finset ℝ)\n  (h₀ : ∀ (x : ℝ), x ∈ S ↔ abs (2 - x) = 3) :\n  ∑ k in S, k = 4 :=",
+    "Proof": "theorem mathd_algebra_196\n  (S : Finset ℝ)\n  (h₀ : ∀ (x : ℝ), x ∈ S ↔ abs (2 - x) = 3) :\n  ∑ k in S, k = 4 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find the sum of all solutions of the equation $|2-x|= 3$. Show that it is 4.",
+    "Informal_proof": "In order to have $|2-x| = 3$, we must have $2-x = 3$ or $2-x = -3$.  If $2-x = 3$, then $x=-1$, and if $2-x = -3$, then $x = 5$.  The sum of these solutions is $(-1) + 5 = 4$.",
+    "NL": "Find the sum of all solutions of the equation $|2-x|= 3$. Show that it is 4.\n\nIn order to have $|2-x| = 3$, we must have $2-x = 3$ or $2-x = -3$.  If $2-x = 3$, then $x=-1$, and if $2-x = -3$, then $x = 5$.  The sum of these solutions is $(-1) + 5 = 4$.",
+    "FL_statement": "theorem mathd_algebra_196\n  (S : Finset ℝ)\n  (h₀ : ∀ (x : ℝ), x ∈ S ↔ abs (2 - x) = 3) :\n  ∑ k in S, k = 4 :=",
+    "Generated_proof": [
+        "-- Given a finite set S, this theorem calculates the sum of its elements\n-- assuming that for every element x in S, its absolute difference with 2\n-- is exactly 3.\n\n-- Input parameters:\n--   - S: A finite set of real numbers\n--   - h₀: An equivalence relation stating that an element belongs to S\n--         if and only if its absolute difference with 2 is 3.\n\n-- Output:\n--   - The sum of all elements in S\n\n-- Proof strategy:\n--   - Apply the'simp_rw' tactic to rewrite the sum calculation using the\n--     provided equivalence relation h₀.\n--   - Use the 'Finset.sum_const' lemma to conclude that the sum equals 4,\n--     since each element satisfies |2 - x| = 3.\n\n-- Note: \n--   - This example demonstrates how to leverage equivalence relations to\n--     manipulate sets and perform calculations over them.\n\ntheorem mathd_algebra_196\n  (S : Finset ℝ)\n  (h₀ : ∀ (x : ℝ), x ∈ S ↔ abs (2 - x) = 3) :\n  ∑ k in S, k = 4 :=\n  by simpa_rw [← Finset.sum_eq_sum_of_subset _ S.toSubmodule univ_toFinset, ←\n      Finset.sum_const fun _ => (by decide)] using (@Finset.sum_const _ _ _ _ _ _ _ _ _ _)\n\n-- End of proof\n-- \n-- "
+    ]
+}

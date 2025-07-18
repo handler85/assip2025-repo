@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_769",
+    "Statement": "theorem mathd_numbertheory_769 :\n  (129^34 + 96^38) % 11 = 9 :=",
+    "Proof": "theorem mathd_numbertheory_769 :\n  (129^34 + 96^38) % 11 = 9 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the remainder when $129^{34}+96^{38}$ is divided by $11$? Show that it is 9.",
+    "Informal_proof": "We use the property that $a \\equiv b \\pmod{m}$ implies $a^c \\equiv b^c \\pmod{m}$.\n\nSince $129 \\equiv -3 \\pmod{11}$ and $96 \\equiv -3 \\pmod{11}$, we have  $$129^{34}+96^{38} \\equiv (-3)^{34}+(-3)^{38} \\equiv 3^{34}+3^{38} \\pmod{11}.$$Since $3^5 \\equiv 1 \\pmod{11},$ we can see that $3^{34} = (3^5)^{6} \\cdot 3^4$ and $3^{38} = (3^5)^{7} \\cdot 3^3.$\n\nThen,  \\begin{align*}\n129^{34}+96^{38}&\\equiv (3^5)^{6} \\cdot 3^4 + (3^5)^{7} \\cdot 3^3\\\\\n& \\equiv 3^4 + 3^3\\\\\n& \\equiv 81 + 27\\\\\n& \\equiv 108 \\\\\n&\\equiv 9 \\pmod{11}.\n\\end{align*}",
+    "NL": "What is the remainder when $129^{34}+96^{38}$ is divided by $11$? Show that it is 9.\n\nWe use the property that $a \\equiv b \\pmod{m}$ implies $a^c \\equiv b^c \\pmod{m}$.\n\nSince $129 \\equiv -3 \\pmod{11}$ and $96 \\equiv -3 \\pmod{11}$, we have  $$129^{34}+96^{38} \\equiv (-3)^{34}+(-3)^{38} \\equiv 3^{34}+3^{38} \\pmod{11}.$$Since $3^5 \\equiv 1 \\pmod{11},$ we can see that $3^{34} = (3^5)^{6} \\cdot 3^4$ and $3^{38} = (3^5)^{7} \\cdot 3^3.$\n\nThen,  \\begin{align*}\n129^{34}+96^{38}&\\equiv (3^5)^{6} \\cdot 3^4 + (3^5)^{7} \\cdot 3^3\\\\\n& \\equiv 3^4 + 3^3\\\\\n& \\equiv 81 + 27\\\\\n& \\equiv 108 \\\\\n&\\equiv 9 \\pmod{11}.\n\\end{align*}",
+    "FL_statement": "theorem mathd_numbertheory_769 :\n  (129^34 + 96^38) % 11 = 9 :=",
+    "Generated_proof": [
+        "-- Show that the remainder of (129^34 + 96^38) divided by 11 is 9.\n\n-- Proof:\n\napply Eq.symm <;>\nring_nf <;>\nrw [(by decide : _ = 3 ^ _) pow_mul];\nring_nf;\nring_nf;\nlinarith"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_313",
+    "Statement": "theorem mathd_algebra_313\n  (v i z : ℂ)\n  (h₀ : v = i * z)\n  (h₁ : v = 1 + Complex.I)\n  (h₂ : z = 2 - Complex.I) :\n  i = 1/5 + 3/5 * Complex.I :=",
+    "Proof": "theorem mathd_algebra_313\n  (v i z : ℂ)\n  (h₀ : v = i * z)\n  (h₁ : v = 1 + Complex.I)\n  (h₂ : z = 2 - Complex.I) :\n  i = 1/5 + 3/5 * Complex.I := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Complex numbers are often used when dealing with alternating current (AC) circuits. In the equation $V = IZ$, $V$ is voltage, $I$ is current, and $Z$ is a value known as impedance. If $V = 1+i$ and $Z=2-i$, find $I$. Show that it is \\frac{1}{5} + \\frac{3}{5}i.",
+    "Informal_proof": "We have $$\nI = \\frac{V}{Z} = \\frac{1+i}{2-i}.\n$$ Multiplying the numerator and denominator by the conjugate of the denominator, we get $$\nI = \\frac{1+i}{2-i} \\cdot \\frac{2+i}{2+i} = \\frac{1(2) + 1(i) + i(2) + i(i)}{2(2) + 2(i) - i(2) - i(i)} = \\frac{1+3i}{5} = \\frac{1}{5} + \\frac{3}{5}i.\n$$",
+    "NL": "Complex numbers are often used when dealing with alternating current (AC) circuits. In the equation $V = IZ$, $V$ is voltage, $I$ is current, and $Z$ is a value known as impedance. If $V = 1+i$ and $Z=2-i$, find $I$. Show that it is \\frac{1}{5} + \\frac{3}{5}i.\n\nWe have $$\nI = \\frac{V}{Z} = \\frac{1+i}{2-i}.\n$$ Multiplying the numerator and denominator by the conjugate of the denominator, we get $$\nI = \\frac{1+i}{2-i} \\cdot \\frac{2+i}{2+i} = \\frac{1(2) + 1(i) + i(2) + i(i)}{2(2) + 2(i) - i(2) - i(i)} = \\frac{1+3i}{5} = \\frac{1}{5} + \\frac{3}{5}i.\n$$",
+    "FL_statement": "theorem mathd_algebra_313\n  (v i z : ℂ)\n  (h₀ : v = i * z)\n  (h₁ : v = 1 + Complex.I)\n  (h₂ : z = 2 - Complex.I) :\n  i = 1/5 + 3/5 * Complex.I :=",
+    "Generated_proof": [
+        "-- Given V = I * Z, find I where V = 1 + i and Z = 2 - i.\n\ntheorem mathd_algebra_313\n  (v i z : ℂ)\n  (h₀ : v = i * z)\n  (h₁ : v = 1 + Complex.I)\n  (h₂ : z = 2 - Complex.I) :\n  i = 1/5 + 3/5 * Complex.I := by\n  -- Rewrite equations using symmetry, negation, and multiplication properties.\n  rw [← h₀.symm, ← h₂.symm, neg_one_mul_I, one_mul_I, add_left_inj, mul_left_inj' h₁, inv_of_eq_inv₀, ← neg_div, div_mul_self, div_self (ne_of_gt _), neg_neg, ← mul_assoc, eq_comm, mul_div_assoc, Nat.cast_mul', Nat.cast_one, Nat.cast_div, Nat.cast_nat_cast', Nat.cast_div, Nat.cast_nat_cast', Nat.cast_nat_cast']"
+    ]
+}

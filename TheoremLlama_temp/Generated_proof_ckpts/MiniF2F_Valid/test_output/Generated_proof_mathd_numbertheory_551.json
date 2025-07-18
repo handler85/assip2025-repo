@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_551",
+    "Statement": "theorem mathd_numbertheory_551 :\n  1529 % 6 = 5 :=",
+    "Proof": "theorem mathd_numbertheory_551 :\n  1529 % 6 = 5 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Determine the remainder of 1529 (mod 6). Show that it is 5.",
+    "Informal_proof": "$1529 = 254 \\cdot 6 + 5 \\Rightarrow 1529 \\equiv 5 \\pmod{6}$.",
+    "NL": "Determine the remainder of 1529 (mod 6). Show that it is 5.\n\n$1529 = 254 \\cdot 6 + 5 \\Rightarrow 1529 \\equiv 5 \\pmod{6}$.",
+    "FL_statement": "theorem mathd_numbertheory_551 :\n  1529 % 6 = 5 :=",
+    "Generated_proof": [
+        "-- Determine the remainder of 1529 (mod 6). \n-- Show that it is 5.\n\n-- **Proof**\n\n-- We use the fact that `a ≡ b (mod c)` implies `a - b` is divisible by `c`.\n-- In particular, `(a - b) / c = q`.\n\n-- Here, `a = 1529`, `b =?`, and `c = 6`. \n\n-- After some calculation, we find `b = 254` such that `(1529 - 254) / 6 = 5`.\n-- This shows that `1529 ≡ 5 (mod 6)`.\n\n-- Formally:\n"
+    ]
+}

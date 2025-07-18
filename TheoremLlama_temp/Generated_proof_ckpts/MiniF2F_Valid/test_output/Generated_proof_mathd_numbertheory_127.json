@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_127",
+    "Statement": "theorem mathd_numbertheory_127 :\n  (∑ k in (Finset.range 101), 2^k) % 7 = 3 :=",
+    "Proof": "theorem mathd_numbertheory_127 :\n  (∑ k in (Finset.range 101), 2^k) % 7 = 3 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find the remainder when $1 + 2 + 2^2 + 2^3 + \\dots + 2^{100}$ is divided by 7. Show that it is 3.",
+    "Informal_proof": "To find the sum, we look at the first few powers of 2 modulo 7: \\begin{align*}\n2^0 &\\equiv 1, \\\\\n2^1 &\\equiv 2, \\\\\n2^2 &\\equiv 4, \\\\\n2^3 &\\equiv 8 \\equiv 1 \\pmod{7}\n\\end{align*}Since $2^3 \\equiv 1 \\pmod{7}$, the powers of 2 modulo 7 repeat in cycles of 3.  Therefore, \\begin{align*}\n&1 + 2 + 2^2 + 2^3 + \\dots + 2^{100} \\\\\n&\\quad\\equiv 1 + 2 + 4 + 1 + 2 + 4 + \\dots + 1 + 2 + 4 + 1 + 2 \\\\\n&\\quad\\equiv (1 + 2 + 4) + (1 + 2 + 4) + \\dots + (1 + 2 + 4) + 1 + 2 \\\\\n&\\quad\\equiv 3 \\pmod{7}.\n\\end{align*}",
+    "NL": "Find the remainder when $1 + 2 + 2^2 + 2^3 + \\dots + 2^{100}$ is divided by 7. Show that it is 3.\n\nTo find the sum, we look at the first few powers of 2 modulo 7: \\begin{align*}\n2^0 &\\equiv 1, \\\\\n2^1 &\\equiv 2, \\\\\n2^2 &\\equiv 4, \\\\\n2^3 &\\equiv 8 \\equiv 1 \\pmod{7}\n\\end{align*}Since $2^3 \\equiv 1 \\pmod{7}$, the powers of 2 modulo 7 repeat in cycles of 3.  Therefore, \\begin{align*}\n&1 + 2 + 2^2 + 2^3 + \\dots + 2^{100} \\\\\n&\\quad\\equiv 1 + 2 + 4 + 1 + 2 + 4 + \\dots + 1 + 2 + 4 + 1 + 2 \\\\\n&\\quad\\equiv (1 + 2 + 4) + (1 + 2 + 4) + \\dots + (1 + 2 + 4) + 1 + 2 \\\\\n&\\quad\\equiv 3 \\pmod{7}.\n\\end{align*}",
+    "FL_statement": "theorem mathd_numbertheory_127 :\n  (∑ k in (Finset.range 101), 2^k) % 7 = 3 :=",
+    "Generated_proof": [
+        "-- Find the remainder when 1 + 2 + 2^2 + 2^3 +... + 2^(100) is divided by 7.\n-- Show that it is 3.\n\n-- To find the sum, we look at the first few powers of 2 modulo 7:\n--"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "Name": "amc12_2000_p6",
+    "Statement": "theorem amc12_2000_p6\n  (p q : ℕ)\n  (h₀ : Nat.Prime p ∧ Nat.Prime q)\n  (h₁ : 4 ≤ p ∧ p ≤ 18)\n  (h₂ : 4 ≤ q ∧ q ≤ 18) :\n  p * q - (p + q) ≠ 194 :=",
+    "Proof": "theorem amc12_2000_p6\n  (p q : ℕ)\n  (h₀ : Nat.Prime p ∧ Nat.Prime q)\n  (h₁ : 4 ≤ p ∧ p ≤ 18)\n  (h₂ : 4 ≤ q ∧ q ≤ 18) :\n  p * q - (p + q) ≠ 194 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Two different prime numbers between $4$ and $18$ are chosen. When their sum is subtracted from their product, which of the following numbers could be obtained?\n\n$\\textbf{(A)}\\ 22 \\qquad\\textbf{(B)}\\ 60 \\qquad\\textbf{(C)}\\ 119 \\qquad\\textbf{(D)}\\ 180 \\qquad\\textbf{(E)}\\ 231$ Show that it is \\textbf{(C) }119.",
+    "Informal_proof": "Any two prime numbers between 4 and 18 have an odd product and an even sum. Any odd number minus an even number is an odd number, so we can eliminate A, B, and D. Since the highest two prime numbers we can pick are 13 and 17, the highest number we can make is $(13)(17)-(13+17) = 221 - 30 = 191$. Thus, we can eliminate E. So, the answer must be $\\textbf{(C) }119$.",
+    "NL": "Two different prime numbers between $4$ and $18$ are chosen. When their sum is subtracted from their product, which of the following numbers could be obtained?\n\n$\\textbf{(A)}\\ 22 \\qquad\\textbf{(B)}\\ 60 \\qquad\\textbf{(C)}\\ 119 \\qquad\\textbf{(D)}\\ 180 \\qquad\\textbf{(E)}\\ 231$ Show that it is \\textbf{(C) }119.\n\nAny two prime numbers between 4 and 18 have an odd product and an even sum. Any odd number minus an even number is an odd number, so we can eliminate A, B, and D. Since the highest two prime numbers we can pick are 13 and 17, the highest number we can make is $(13)(17)-(13+17) = 221 - 30 = 191$. Thus, we can eliminate E. So, the answer must be $\\textbf{(C) }119$.",
+    "FL_statement": "theorem amc12_2000_p6\n  (p q : ℕ)\n  (h₀ : Nat.Prime p ∧ Nat.Prime q)\n  (h₁ : 4 ≤ p ∧ p ≤ 18)\n  (h₂ : 4 ≤ q ∧ q ≤ 18) :\n  p * q - (p + q) ≠ 194 :=",
+    "Generated_proof": []
+}

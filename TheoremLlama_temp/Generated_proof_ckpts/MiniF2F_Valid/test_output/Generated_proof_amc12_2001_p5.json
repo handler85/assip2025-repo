@@ -1,0 +1,14 @@
+{
+    "Name": "amc12_2001_p5",
+    "Statement": "theorem amc12_2001_p5 :\n  Finset.prod (Finset.filter (λ x => ¬ Even x) (Finset.range 10000)) (id : ℕ → ℕ) = (10000!) / ((2^5000) * (5000!)) :=",
+    "Proof": "theorem amc12_2001_p5 :\n  Finset.prod (Finset.filter (λ x => ¬ Even x) (Finset.range 10000)) (id : ℕ → ℕ) = (10000!) / ((2^5000) * (5000!)) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the product of all positive odd integers less than $10000$?\n\n$\\text{(A)}\\ \\dfrac{10000!}{(5000!)^2}\\qquad \\text{(B)}\\ \\dfrac{10000!}{2^{5000}}\\qquad\n\\text{(C)}\\ \\dfrac{9999!}{2^{5000}}\\qquad \\text{(D)}\\ \\dfrac{10000!}{2^{5000} \\cdot 5000!}\\qquad\n\\text{(E)}\\ \\dfrac{5000!}{2^{5000}}$ Show that it is \\text{(D)} \\dfrac{10000!}{2^{5000} \\cdot 5000!}.",
+    "Informal_proof": "$1 \\cdot 3 \\cdot 5 \\cdots 9999 = \\dfrac{1 \\cdot 2 \\cdot 3 \\cdot 4 \\cdots 10000}{2 \\cdot 4 \\cdot 6 \\cdots 10000}= \\dfrac{10000!}{2^{5000} \\cdot 1 \\cdot 2 \\cdot 3 \\cdots 5000}= \\dfrac{10000!}{2^{5000}\\cdot5000!}$\n\nTherefore the answer is $\\text{(D)} \\dfrac{10000!}{2^{5000} \\cdot 5000!}$.",
+    "NL": "What is the product of all positive odd integers less than $10000$?\n\n$\\text{(A)}\\ \\dfrac{10000!}{(5000!)^2}\\qquad \\text{(B)}\\ \\dfrac{10000!}{2^{5000}}\\qquad\n\\text{(C)}\\ \\dfrac{9999!}{2^{5000}}\\qquad \\text{(D)}\\ \\dfrac{10000!}{2^{5000} \\cdot 5000!}\\qquad\n\\text{(E)}\\ \\dfrac{5000!}{2^{5000}}$ Show that it is \\text{(D)} \\dfrac{10000!}{2^{5000} \\cdot 5000!}.\n\n$1 \\cdot 3 \\cdot 5 \\cdots 9999 = \\dfrac{1 \\cdot 2 \\cdot 3 \\cdot 4 \\cdots 10000}{2 \\cdot 4 \\cdot 6 \\cdots 10000}= \\dfrac{10000!}{2^{5000} \\cdot 1 \\cdot 2 \\cdot 3 \\cdots 5000}= \\dfrac{10000!}{2^{5000}\\cdot5000!}$\n\nTherefore the answer is $\\text{(D)} \\dfrac{10000!}{2^{5000} \\cdot 5000!}$.",
+    "FL_statement": "theorem amc12_2001_p5 :\n  Finset.prod (Finset.filter (λ x => ¬ Even x) (Finset.range 10000)) (id : ℕ → ℕ) = (10000!) / ((2^5000) * (5000!)) :=",
+    "Generated_proof": [
+        "-- This theorem calculates the product of all positive odd integers less than 10000.\n--\n-- The input is a list of indices from 1 to 10000.\n-- It returns the product of all elements in the list that are odd.\n--\n-- The proof uses the `Finset.prod` function to calculate the product,\n-- and the `Finset.filter` function to select only the odd numbers.\n-- It also uses the `Finset.range` function to create a list of indices.\n-- Finally, it uses the `Nat.div_factorial'` function to calculate the factorial.\n\ntheorem amc12_2001_p5 :\n  Finset.prod (Finset.filter (λ x => ¬ Even x) (Finset.range 10000)) (id : ℕ → ℕ) =\n    (10000!) / ((2^5000) * (5000!)) :=\nby rw [Finset.prod_filter_range]; split; {exact Nat.div_factorial'}; try linarith"
+    ]
+}

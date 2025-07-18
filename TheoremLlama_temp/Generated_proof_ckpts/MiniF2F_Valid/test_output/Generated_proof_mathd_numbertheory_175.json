@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_175",
+    "Statement": "theorem mathd_numbertheory_175 :\n  (2^2010) % 10 = 4 :=",
+    "Proof": "theorem mathd_numbertheory_175 :\n  (2^2010) % 10 = 4 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the units digit of $2^{2010}$? Show that it is 4.",
+    "Informal_proof": "Let's start by finding the units digit of small powers of 2. \\begin{align*}\n2^1 &= 2 \\\\\n2^2 &= 4 \\\\\n2^3 &= 8 \\\\\n2^4 &= 16 \\\\\n2^5 &= 32 \\\\\n2^6 &= 64 \\\\\n2^7 &= 128 \\\\\n2^8 &= 256 \\\\\n\\end{align*}It looks like the units digit repeats every time the exponent is increased by 4. The remainder when 2010 is divided by 4 is 2, so $2^{2010}$ has the same units digit as $2^2$, which is $4$.",
+    "NL": "What is the units digit of $2^{2010}$? Show that it is 4.\n\nLet's start by finding the units digit of small powers of 2. \\begin{align*}\n2^1 &= 2 \\\\\n2^2 &= 4 \\\\\n2^3 &= 8 \\\\\n2^4 &= 16 \\\\\n2^5 &= 32 \\\\\n2^6 &= 64 \\\\\n2^7 &= 128 \\\\\n2^8 &= 256 \\\\\n\\end{align*}It looks like the units digit repeats every time the exponent is increased by 4. The remainder when 2010 is divided by 4 is 2, so $2^{2010}$ has the same units digit as $2^2$, which is $4$.",
+    "FL_statement": "theorem mathd_numbertheory_175 :\n  (2^2010) % 10 = 4 :=",
+    "Generated_proof": [
+        "-- **Units digit of $2^{2010}$**\n\n-- Let's start by finding the units digit of small powers of 2:\n"
+    ]
+}

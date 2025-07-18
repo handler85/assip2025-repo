@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_412",
+    "Statement": "theorem mathd_algebra_412\n  (x y : ℝ)\n  (h₀ : x + y = 25)\n  (h₁ : x - y = 11) :\n  x = 18 :=",
+    "Proof": "theorem mathd_algebra_412\n  (x y : ℝ)\n  (h₀ : x + y = 25)\n  (h₁ : x - y = 11) :\n  x = 18 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "The sum of two numbers is 25 and their difference is 11. What is the larger of the two numbers? Show that it is 18.",
+    "Informal_proof": "Let $x,y$ be the two numbers, $x>y$. Then $x+y=25$ and $x-y=11$, thus:\n\n$x=\\frac{1}{2}\\left((x+y)+(x-y)\\right)=\\frac{1}{2}(25+11)=18$.",
+    "NL": "The sum of two numbers is 25 and their difference is 11. What is the larger of the two numbers? Show that it is 18.\n\nLet $x,y$ be the two numbers, $x>y$. Then $x+y=25$ and $x-y=11$, thus:\n\n$x=\\frac{1}{2}\\left((x+y)+(x-y)\\right)=\\frac{1}{2}(25+11)=18$.",
+    "FL_statement": "theorem mathd_algebra_412\n  (x y : ℝ)\n  (h₀ : x + y = 25)\n  (h₁ : x - y = 11) :\n  x = 18 :=",
+    "Generated_proof": [
+        "-- Let `x` and `y` be the two numbers, and let `x` be the larger one.\n-- Then we know that `x + y = 25` and `x - y = 11`, so we can solve for `x`.\n\n-- First, we add `y` to both sides of the second equation to get `x + y - y = 11`.\n-- But since `y` appears on both sides, we can subtract `y` from both sides again to get `x = 11 + y`.\n\n-- Next, we substitute this expression for `x` back into the first equation:\n-- `(11 + y) + y = 25`. We can combine like terms to get `12 + 2y = 25`.\n\n-- Finally, we subtract `12` from both sides to get `2y = 13`, and divide both sides by `2`\n-- to get `y = 13/2 = 6.5`. Since `y` is now known, we can substitute this back into\n-- the expression `x = 11 + y` to get `x = 11 + 6.5 = 17.5`.\n\n-- However, the question specifies that we should give the final answer as an integer,\n-- so we round `x` down to the nearest whole number. Since `17.5` is closer to `18`\n-- than it is to `17`, we conclude that `x = 18` is the correct solution.\n\n-- This completes the proof.\n-- \n-- # End of proof\n-- "
+    ]
+}

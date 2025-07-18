@@ -1,0 +1,14 @@
+{
+    "Name": "imo_1960_p2",
+    "Statement": "theorem imo_1960_p2\n  (x : ℝ)\n  (h₀ : 0 ≤ 1 + 2 * x)\n  (h₁ : (1 - Real.sqrt (1 + 2 * x))^2 ≠ 0)\n  (h₂ : (4 * x^2) / (1 - Real.sqrt (1 + 2*x))^2 < 2*x + 9) :\n  -(1 / 2) ≤ x ∧ x < 45 / 8 :=",
+    "Proof": "theorem imo_1960_p2\n  (x : ℝ)\n  (h₀ : 0 ≤ 1 + 2 * x)\n  (h₁ : (1 - Real.sqrt (1 + 2 * x))^2 ≠ 0)\n  (h₂ : (4 * x^2) / (1 - Real.sqrt (1 + 2*x))^2 < 2*x + 9) :\n  -(1 / 2) ≤ x ∧ x < 45 / 8 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "For what values of the variable $x$ does the following inequality hold:\n\n$\\dfrac{4x^2}{(1 - \\sqrt {2x + 1})^2} < 2x + 9 \\ ?$",
+    "Informal_proof": "Set $x = -\\frac{1}{2} + \\frac{a^2}{2}$, where $a\\ge0$.\n$\\frac{4\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)^2}{\\left(1-\\sqrt{1+2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)}\\right)^2}<2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)+9$\n\nAfter simplifying, we get\n$(a+1)^2<a^2+8$\n\nSo\n$a^2+2a+1<a^2+8$\n\nWhich gives $a<\\frac{7}{2}$ and hence $-\\frac{1}{2} \\le x<\\frac{45}{8}$.\n\nBut $x=0$ makes the LHS indeterminate.\n\nSo, answer: $-\\frac{1}{2} \\le x<\\frac{45}{8}$, except $x=0$.",
+    "NL": "For what values of the variable $x$ does the following inequality hold:\n\n$\\dfrac{4x^2}{(1 - \\sqrt {2x + 1})^2} < 2x + 9 \\ ?$\n\nSet $x = -\\frac{1}{2} + \\frac{a^2}{2}$, where $a\\ge0$.\n$\\frac{4\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)^2}{\\left(1-\\sqrt{1+2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)}\\right)^2}<2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)+9$\n\nAfter simplifying, we get\n$(a+1)^2<a^2+8$\n\nSo\n$a^2+2a+1<a^2+8$\n\nWhich gives $a<\\frac{7}{2}$ and hence $-\\frac{1}{2} \\le x<\\frac{45}{8}$.\n\nBut $x=0$ makes the LHS indeterminate.\n\nSo, answer: $-\\frac{1}{2} \\le x<\\frac{45}{8}$, except $x=0$.",
+    "FL_statement": "theorem imo_1960_p2\n  (x : ℝ)\n  (h₀ : 0 ≤ 1 + 2 * x)\n  (h₁ : (1 - Real.sqrt (1 + 2 * x))^2 ≠ 0)\n  (h₂ : (4 * x^2) / (1 - Real.sqrt (1 + 2*x))^2 < 2*x + 9) :\n  -(1 / 2) ≤ x ∧ x < 45 / 8 :=",
+    "Generated_proof": [
+        "-- For what values of the variable $x$ does the following inequality hold:\n--\n-- $\\dfrac{4x^2}{(1 - \\sqrt {2x + 1})^2} < 2x + 9 \\?$\n--\n-- Set $x = -\\frac{1}{2} + \\frac{a^2}{2}$, where $a\\ge0$.\n-- \n-- $\\frac{4\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)^2}{\\left(1-\\sqrt{1+2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)}\\right)^2}<2\\left(-\\frac{1}{2}+\\frac{a^2}{2}\\right)+9$\n-- \n-- After simplifying, we get\n-- \n-- $(a+1)^2<a^2+8$\n-- \n-- So\n-- \n-- $a^2+2a+1<a^2+8$\n-- \n-- Which gives $a<\\frac{7}{2}$ and hence $-\\frac{1}{2} \\le x<\\frac{45}{8}$.\n-- \n-- But $x=0$ makes the LHS indeterminate.\n-- \n-- So, answer: $-\\frac{1}{2} \\le x<\\frac{45}{8}$, except $x=0$.\n\n-- Porting note: was"
+    ]
+}

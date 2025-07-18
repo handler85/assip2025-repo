@@ -1,0 +1,12 @@
+{
+    "Name": "amc12_2000_p12",
+    "Statement": "theorem amc12_2000_p12\n  (a m c : ℕ)\n  (h₀ : a + m + c = 12) :\n  a*m*c + a*m + m*c + a*c ≤ 112 :=",
+    "Proof": "theorem amc12_2000_p12\n  (a m c : ℕ)\n  (h₀ : a + m + c = 12) :\n  a*m*c + a*m + m*c + a*c ≤ 112 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Let $A, M,$ and $C$ be [[nonnegative integer]]s such that $A + M + C=12$. What is the maximum value of $A \\cdot M \\cdot C + A \\cdot M + M \\cdot C + A \\cdot C$?\n\n$ \\mathrm{(A) \\ 62 } \\qquad \\mathrm{(B) \\ 72 } \\qquad \\mathrm{(C) \\ 92 } \\qquad \\mathrm{(D) \\ 102 } \\qquad \\mathrm{(E) \\ 112 }  $ Show that it is \\text{E}.",
+    "Informal_proof": "It is not hard to see that \n$(A+1)(M+1)(C+1)=$\n$AMC+AM+AC+MC+A+M+C+1$\nSince $A+M+C=12$, we can rewrite this as\n$(A+1)(M+1)(C+1)=$\n$AMC+AM+AC+MC+13$\nSo we wish to maximize\n$(A+1)(M+1)(C+1)-13$\nWhich is largest when all the factors are equal (consequence of AM-GM).  Since $A+M+C=12$, we set $A=M=C=4$\nWhich gives us \n$(4+1)(4+1)(4+1)-13=112$\nso the answer is $\\text{E}$.\nI wish you understand this problem and can use it in other problems.",
+    "NL": "Let $A, M,$ and $C$ be [[nonnegative integer]]s such that $A + M + C=12$. What is the maximum value of $A \\cdot M \\cdot C + A \\cdot M + M \\cdot C + A \\cdot C$?\n\n$ \\mathrm{(A) \\ 62 } \\qquad \\mathrm{(B) \\ 72 } \\qquad \\mathrm{(C) \\ 92 } \\qquad \\mathrm{(D) \\ 102 } \\qquad \\mathrm{(E) \\ 112 }  $ Show that it is \\text{E}.\n\nIt is not hard to see that \n$(A+1)(M+1)(C+1)=$\n$AMC+AM+AC+MC+A+M+C+1$\nSince $A+M+C=12$, we can rewrite this as\n$(A+1)(M+1)(C+1)=$\n$AMC+AM+AC+MC+13$\nSo we wish to maximize\n$(A+1)(M+1)(C+1)-13$\nWhich is largest when all the factors are equal (consequence of AM-GM).  Since $A+M+C=12$, we set $A=M=C=4$\nWhich gives us \n$(4+1)(4+1)(4+1)-13=112$\nso the answer is $\\text{E}$.\nI wish you understand this problem and can use it in other problems.",
+    "FL_statement": "theorem amc12_2000_p12\n  (a m c : ℕ)\n  (h₀ : a + m + c = 12) :\n  a*m*c + a*m + m*c + a*c ≤ 112 :=",
+    "Generated_proof": []
+}

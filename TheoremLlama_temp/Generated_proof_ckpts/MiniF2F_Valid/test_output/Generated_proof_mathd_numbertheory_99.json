@@ -1,0 +1,12 @@
+{
+    "Name": "mathd_numbertheory_99",
+    "Statement": "theorem mathd_numbertheory_99\n  (n : ℕ)\n  (h₀ : (2 * n) % 47 = 15) :\n  n % 47 = 31 :=",
+    "Proof": "theorem mathd_numbertheory_99\n  (n : ℕ)\n  (h₀ : (2 * n) % 47 = 15) :\n  n % 47 = 31 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Solve the congruence $2n \\equiv 15 \\pmod{47}$, as a residue modulo 47.  (Give an answer between 0 and 46.) Show that it is 31.",
+    "Informal_proof": "Note that $15 \\equiv 62 \\pmod{47}$, so we can write the given congruence as $2n \\equiv 62 \\pmod{47}$.  Since 2 is relatively prime to 47, we can divide both sides by 2, to get $n \\equiv 31 \\pmod{47}$.",
+    "NL": "Solve the congruence $2n \\equiv 15 \\pmod{47}$, as a residue modulo 47.  (Give an answer between 0 and 46.) Show that it is 31.\n\nNote that $15 \\equiv 62 \\pmod{47}$, so we can write the given congruence as $2n \\equiv 62 \\pmod{47}$.  Since 2 is relatively prime to 47, we can divide both sides by 2, to get $n \\equiv 31 \\pmod{47}$.",
+    "FL_statement": "theorem mathd_numbertheory_99\n  (n : ℕ)\n  (h₀ : (2 * n) % 47 = 15) :\n  n % 47 = 31 :=",
+    "Generated_proof": []
+}

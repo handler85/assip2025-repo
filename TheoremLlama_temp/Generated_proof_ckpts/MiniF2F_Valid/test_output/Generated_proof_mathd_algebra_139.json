@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_139",
+    "Statement": "theorem mathd_algebra_139\n  (s : ℝ → ℝ → ℝ)\n  (h₀ : ∀ x, ∀ y, x≠0 -> y≠0 -> s x y = (1/y - 1/x) / (x-y)) :\n  s 3 11 = 1/33 :=",
+    "Proof": "theorem mathd_algebra_139\n  (s : ℝ → ℝ → ℝ)\n  (h₀ : ∀ x, ∀ y, x≠0 -> y≠0 -> s x y = (1/y - 1/x) / (x-y)) :\n  s 3 11 = 1/33 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "If $a \\star b = \\dfrac{\\left(\\dfrac{1}{b} - \\dfrac{1}{a}\\right)}{(a - b)}$, express $3 \\star 11$ as a common fraction. Show that it is \\frac{1}{33}.",
+    "Informal_proof": "We could plug in 3 and 11 to find the answer. However, note that $a \\star b = \\dfrac{\\dfrac{a - b}{ab}}{a - b} = \\dfrac{1}{ab}$. Therefore, $3 \\star 11 = \\frac{1}{3 \\cdot 11} = \\frac{1}{33}$.",
+    "NL": "If $a \\star b = \\dfrac{\\left(\\dfrac{1}{b} - \\dfrac{1}{a}\\right)}{(a - b)}$, express $3 \\star 11$ as a common fraction. Show that it is \\frac{1}{33}.\n\nWe could plug in 3 and 11 to find the answer. However, note that $a \\star b = \\dfrac{\\dfrac{a - b}{ab}}{a - b} = \\dfrac{1}{ab}$. Therefore, $3 \\star 11 = \\frac{1}{3 \\cdot 11} = \\frac{1}{33}$.",
+    "FL_statement": "theorem mathd_algebra_139\n  (s : ℝ → ℝ → ℝ)\n  (h₀ : ∀ x, ∀ y, x≠0 -> y≠0 -> s x y = (1/y - 1/x) / (x-y)) :\n  s 3 11 = 1/33 :=",
+    "Generated_proof": [
+        "-- If `a` and `b` are nonzero real numbers, then `s a b` represents the expression `(1/b - 1/a) / (a-b)`.\n--\n-- This function takes two arguments, `s` and `h₀`, where `s` is a binary function that takes two real numbers as input, and `h₀` is a hypothesis that states the properties of `s`.\n\n-- Given that `s 3 11` evaluates to `1/33`, the goal is to prove this equality using the provided hypothesis `h₀`.\n\n-- To achieve this, we first use `simp_rw [← h₀ _ _ _, mul_comm (_root_.invOf 11)]` to rewrite the goal using the definition of `s` and commutativity of multiplication.\n\n-- Finally, we apply `norm_num` to simplify the resulting expression and obtain the desired result.\n\n-- Here is the complete code snippet:\n\n-- # Proof\n"
+    ]
+}

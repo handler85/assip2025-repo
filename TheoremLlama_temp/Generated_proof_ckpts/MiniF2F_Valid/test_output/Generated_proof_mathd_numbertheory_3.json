@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_3",
+    "Statement": "theorem mathd_numbertheory_3 :\n  (∑ x in Finset.range 10, ((x + 1)^2)) % 10 = 5 :=",
+    "Proof": "theorem mathd_numbertheory_3 :\n  (∑ x in Finset.range 10, ((x + 1)^2)) % 10 = 5 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "What is the units digit of the sum of the squares of the first nine positive integers? Show that it is 5.",
+    "Informal_proof": "We can reduce the amount of work we have to do in this problem by realizing that the units digit of the sum of the squares is the units digit of the sum of the units digits of the squares. In other words, the units digit of $1^2+2^2+\\ldots+9^2$ is the units digit of $1+4+9+6+5+6+9+4+1=45$, which is $5$.",
+    "NL": "What is the units digit of the sum of the squares of the first nine positive integers? Show that it is 5.\n\nWe can reduce the amount of work we have to do in this problem by realizing that the units digit of the sum of the squares is the units digit of the sum of the units digits of the squares. In other words, the units digit of $1^2+2^2+\\ldots+9^2$ is the units digit of $1+4+9+6+5+6+9+4+1=45$, which is $5$.",
+    "FL_statement": "theorem mathd_numbertheory_3 :\n  (∑ x in Finset.range 10, ((x + 1)^2)) % 10 = 5 :=",
+    "Generated_proof": [
+        "-- # Units Digit of Sum of Squares of First Nine Integers #\n--\n-- ## Statement ##\n-- \n-- What is the units digit of the sum of the squares of the first nine positive integers?\n-- \n-- ## Solution ##\n-- \n-- We can reduce the amount of work we have to do in this problem by realizing that the units digit of the sum of the squares is the units digit of the sum of the units digits of the squares. In other words, the units digit of $1^2+2^2+\\ldots+9^2$ is the units digit of $1+4+9+6+5+6+9+4+1=45$, which is $5$.\n\n-- ### Lean Code ###\n\n-- ## Parameters ##\n-- \n-- **x**: A natural number between 1 and 9.\n\n-- ## Function Definition ##\n\n-- **sum_of_squares_upt_9**: Returns the units digit of the sum of the squares of the first nine positive integers.\n\n-- ## Implementation ##\n\n-- We use `Finset.sum_range` to compute the sum of the squares of the first nine positive integers. \n-- Then, we take the remainder of this sum when divided by 10 using `Nat.modEq_iff_dvd.mp`. \n-- Since the sum of the squares is divisible by 10, its units digit must be the same as the units digit of the remainder. \n-- Finally, we simplify using `simp_all`.\n\n-- ## Output ##\n\n-- The output should be `5`, which is the units digit of the sum of the squares of the first nine positive integers.\n\n-- ## References ##\n\n-- * [Number Theory](https://en.wikipedia.org/wiki/Number_theory)\n\n-- ## Example Input ##\n"
+    ]
+}

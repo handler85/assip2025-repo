@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_598",
+    "Statement": "theorem mathd_algebra_598\n  (a b c d : ℝ)\n  (h₁ : ((4:ℝ)^a) = 5)\n  (h₂ : ((5:ℝ)^b) = 6)\n  (h₃ : ((6:ℝ)^c) = 7)\n  (h₄ : ((7:ℝ)^d) = 8) :\n  a * b * c * d = 3 / 2 :=",
+    "Proof": "theorem mathd_algebra_598\n  (a b c d : ℝ)\n  (h₁ : ((4:ℝ)^a) = 5)\n  (h₂ : ((5:ℝ)^b) = 6)\n  (h₃ : ((6:ℝ)^c) = 7)\n  (h₄ : ((7:ℝ)^d) = 8) :\n  a * b * c * d = 3 / 2 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Suppose that  $4^{a}=5$, $5^{b}=6$, $6^{c}=7,$ and  $7^{d}=8$. What is $a\\cdot b\\cdot c\\cdot d$? Show that it is \\frac{3}{2}.",
+    "Informal_proof": "Because \\[\n4^{a\\cdot b\\cdot c\\cdot d}\n= \\left(\\left(\\left(4^a\\right)^b\\right)^c\\right)^d\n= \\left(\\left( 5^b\\right)^c\\right)^d\n= \\left(6^c\\right)^d = 7^d = 8 = 4^{3/2},\n\\]we have $a\\cdot b\\cdot c\\cdot d = \\frac{3}{2}$.",
+    "NL": "Suppose that  $4^{a}=5$, $5^{b}=6$, $6^{c}=7,$ and  $7^{d}=8$. What is $a\\cdot b\\cdot c\\cdot d$? Show that it is \\frac{3}{2}.\n\nBecause \\[\n4^{a\\cdot b\\cdot c\\cdot d}\n= \\left(\\left(\\left(4^a\\right)^b\\right)^c\\right)^d\n= \\left(\\left( 5^b\\right)^c\\right)^d\n= \\left(6^c\\right)^d = 7^d = 8 = 4^{3/2},\n\\]we have $a\\cdot b\\cdot c\\cdot d = \\frac{3}{2}$.",
+    "FL_statement": "theorem mathd_algebra_598\n  (a b c d : ℝ)\n  (h₁ : ((4:ℝ)^a) = 5)\n  (h₂ : ((5:ℝ)^b) = 6)\n  (h₃ : ((6:ℝ)^c) = 7)\n  (h₄ : ((7:ℝ)^d) = 8) :\n  a * b * c * d = 3 / 2 :=",
+    "Generated_proof": [
+        "-- Suppose that $4^a=5,5^b=6,6^c=7,$ and $7^d=8$. What is $a\\cdot b\\cdot c\\cdot d$?\n-- Show that it is $\\frac{3}{2}$.\n--\n-- Because \\[\n-- 4^{a\\cdot b\\cdot c\\cdot d}\n-- = \\left(\\left(\\left(4^a\\right)^b\\right)^c\\right)^d\n-- = \\left(\\left( 5^b\\right)^c\\right)^d\n-- = \\left(6^c\\right)^d = 7^d = 8 = 4^{3/2},\n-- \\]we have $a\\cdot b\\cdot c\\cdot d = \\frac{3}{2}$.\n\ntheorem mathd_algebra_598\n  (a b c d : ℝ)\n  (h₁ : ((4:ℝ)^a) = 5)\n  (h₂ : ((5:ℝ)^b) = 6)\n  (h₃ : ((6:ℝ)^c) = 7)\n  (h₄ : ((7:ℝ)^d) = 8) :\n  a * b * c * d = 3 / 2 := by linarith [(h₁.pow_left 1).symm, (h₂.pow_left 1).symm, (h₃.pow_left 1).symm, h₄.symm]; aesop"
+    ]
+}

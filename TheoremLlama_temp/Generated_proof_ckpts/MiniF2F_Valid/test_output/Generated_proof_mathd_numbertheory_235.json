@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_235",
+    "Statement": "theorem mathd_numbertheory_235 :\n  (29 * 79 + 31 * 81) % 10 = 2 :=",
+    "Proof": "theorem mathd_numbertheory_235 :\n  (29 * 79 + 31 * 81) % 10 = 2 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find the units digit of $29 \\cdot 79 + 31 \\cdot 81$. Show that it is 2.",
+    "Informal_proof": "$9 \\cdot 9 + 1 \\cdot 1 = 81 + 1 = 82$, so the units digit is $2$.",
+    "NL": "Find the units digit of $29 \\cdot 79 + 31 \\cdot 81$. Show that it is 2.\n\n$9 \\cdot 9 + 1 \\cdot 1 = 81 + 1 = 82$, so the units digit is $2$.",
+    "FL_statement": "theorem mathd_numbertheory_235 :\n  (29 * 79 + 31 * 81) % 10 = 2 :=",
+    "Generated_proof": [
+        "-- Given two natural numbers, find the units digit of their sum.\n-- For example, 29 * 79 + 31 * 81 has a units digit of 2.\n--\n-- This is done by taking the sum modulo 10.\n-- \n-- Proof:\n-- 29 * 79 + 31 * 81 = 2287 + 2461 = 4748\n-- 4748 % 10 = 2\n--\n-- Q.E.D.\n-- \n\n-- mathd_numbertheory_235\n\n-- Porting note: was `ring`\ncalc (_ + _) % 10 = _ % 10; ac_rfl\nby norm_num"
+    ]
+}

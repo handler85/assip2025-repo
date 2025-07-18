@@ -1,0 +1,14 @@
+{
+    "Name": "amc12a_2003_p5",
+    "Statement": "theorem amc12a_2003_p5\n  (A M C : ℕ)\n  (h₀ : A ≤ 9 ∧ M ≤ 9 ∧ C ≤ 9)\n  (h₁ : Nat.ofDigits 10 [0,1,C,M,A] + Nat.ofDigits 10 [2,1,C,M,A] = 123422) :\n  A + M + C = 14 :=",
+    "Proof": "theorem amc12a_2003_p5\n  (A M C : ℕ)\n  (h₀ : A ≤ 9 ∧ M ≤ 9 ∧ C ≤ 9)\n  (h₁ : Nat.ofDigits 10 [0,1,C,M,A] + Nat.ofDigits 10 [2,1,C,M,A] = 123422) :\n  A + M + C = 14 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "The sum of the two 5-digit numbers $AMC10$ and $AMC12$ is $123422$. What is $A+M+C$? \n\n$ \\mathrm{(A) \\ } 10\\qquad \\mathrm{(B) \\ } 11\\qquad \\mathrm{(C) \\ } 12\\qquad \\mathrm{(D) \\ } 13\\qquad \\mathrm{(E) \\ } 14 $ Show that it is \\mathrm{(E)}\\ 14.",
+    "Informal_proof": "$AMC10+AMC12=123422$\n\n$AMC00+AMC00=123400$ \n\n$AMC+AMC=1234$\n\n$2\\cdot AMC=1234$ \n\n$AMC=\\frac{1234}{2}=617$\n\nSince $A$, $M$, and $C$ are digits, $A=6$, $M=1$, $C=7$. \n\nTherefore, $A+M+C = 6+1+7 = \\mathrm{(E)}\\ 14 $.",
+    "NL": "The sum of the two 5-digit numbers $AMC10$ and $AMC12$ is $123422$. What is $A+M+C$? \n\n$ \\mathrm{(A) \\ } 10\\qquad \\mathrm{(B) \\ } 11\\qquad \\mathrm{(C) \\ } 12\\qquad \\mathrm{(D) \\ } 13\\qquad \\mathrm{(E) \\ } 14 $ Show that it is \\mathrm{(E)}\\ 14.\n\n$AMC10+AMC12=123422$\n\n$AMC00+AMC00=123400$ \n\n$AMC+AMC=1234$\n\n$2\\cdot AMC=1234$ \n\n$AMC=\\frac{1234}{2}=617$\n\nSince $A$, $M$, and $C$ are digits, $A=6$, $M=1$, $C=7$. \n\nTherefore, $A+M+C = 6+1+7 = \\mathrm{(E)}\\ 14 $.",
+    "FL_statement": "theorem amc12a_2003_p5\n  (A M C : ℕ)\n  (h₀ : A ≤ 9 ∧ M ≤ 9 ∧ C ≤ 9)\n  (h₁ : Nat.ofDigits 10 [0,1,C,M,A] + Nat.ofDigits 10 [2,1,C,M,A] = 123422) :\n  A + M + C = 14 :=",
+    "Generated_proof": [
+        "-- The sum of the two 5-digit numbers `AMC10` and `AMC12` is `123422`.\n-- What is `A+M+C`?\n--\n-- Show that it is `(E)` `14`.\n\n-- `AMC10+AMC12=123422`\n-- `AMC00+AMC00=123400`\n-- `AMC+AMC=1234`\n-- `2*AMC=1234`\n-- `AMC=1234/2=617`\n-- Since `A`, `M`, and `C` are digits, `A=6`, `M=1`, `C=7`.\n-- Therefore, `A+M+C = 6+1+7 = (E) 14`.\n--\n\n-- # Input\n-- ## Parameters\n-- - `A`: The third digit of `AMC10`\n-- - `M`: The fourth digit of `AMC10`\n-- - `C`: The fifth digit of `AMC10`\n-- - `h₀`: A tuple containing the following propositions:\n--   - `A <= 9`\n--   - `M <= 9`\n--   - `C <= 9`\n-- - `h₁`: The sum of `AMC10` and `AMC12` is `123422`\n\n-- # Output\n-- `A + M + C = 14`\n-- # Proof\n-- See the comments above for the proof outline.\n-- See the Lean4 code below for the actual implementation.\n\n-- # Implementation\n-- ## Proof"
+    ]
+}

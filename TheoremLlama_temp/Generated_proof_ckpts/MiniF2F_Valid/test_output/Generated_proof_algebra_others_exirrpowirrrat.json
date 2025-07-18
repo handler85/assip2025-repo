@@ -1,0 +1,14 @@
+{
+    "Name": "algebra_others_exirrpowirrrat",
+    "Statement": "theorem algebra_others_exirrpowirrrat :\n  ∃ a b, Irrational a ∧ Irrational b ∧ ¬ Irrational (a^b) :=",
+    "Proof": "theorem algebra_others_exirrpowirrrat :\n  ∃ a b, Irrational a ∧ Irrational b ∧ ¬ Irrational (a^b) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Show that there exist real numbers $a$ and $b$ such that $a$ is irrational, $b$ is irrational, and $a^b$ is rational.",
+    "Informal_proof": "We know that $\\sqrt{2}$ is an irrational number.\nIf $\\sqrt{2}^{\\sqrt{2}}$ is rational, we found a solution.\nOtherwise, we consider $a=\\sqrt{2}^{\\sqrt{2}}$ and $b=\\sqrt{2}$.\nThen, we have $a^b=(\\sqrt{2}^{\\sqrt{2}})^{\\sqrt{2}}=\\sqrt{2}^{\\sqrt{2}\\times\\sqrt{2}}=\\sqrt{2}^2=2$ so $a^b$ is rational, and we found a solution.",
+    "NL": "Show that there exist real numbers $a$ and $b$ such that $a$ is irrational, $b$ is irrational, and $a^b$ is rational.\n\nWe know that $\\sqrt{2}$ is an irrational number.\nIf $\\sqrt{2}^{\\sqrt{2}}$ is rational, we found a solution.\nOtherwise, we consider $a=\\sqrt{2}^{\\sqrt{2}}$ and $b=\\sqrt{2}$.\nThen, we have $a^b=(\\sqrt{2}^{\\sqrt{2}})^{\\sqrt{2}}=\\sqrt{2}^{\\sqrt{2}\\times\\sqrt{2}}=\\sqrt{2}^2=2$ so $a^b$ is rational, and we found a solution.",
+    "FL_statement": "theorem algebra_others_exirrpowirrrat :\n  ∃ a b, Irrational a ∧ Irrational b ∧ ¬ Irrational (a^b) :=",
+    "Generated_proof": [
+        "-- Show that there exist real numbers a and b such that a is irrational, b is irrational, and ab is rational.\n-- This is done by considering the square root of 2 raised to the power of its square root.\n-- If the result is rational, we have found a solution.\n-- Otherwise, we can take the square root of 2 as a and its square root as b, resulting in a rational ab.\n-- This completes the proof.\n\n-- Apply the 'exists_Irrational_mul_Irrational_not_Irrational' lemma from 'Algebra'.\napply Algebra.exists_Irrational_mul_Irrational_not_Irrational\n-- Simplify the goal using'simp_all_rw'. \n-- The 'Irrational.pow_Irrational_left' lemma is used here.\nsimp_all_rw [(· ∘ ·), pow_succ', one_smul, mul_one, mul_assoc, @mul_comm _ _ 2, one_mul,\n  mul_add, one_div, ← div_mul_cancel, Irrational.mul_right_injOnDivRightOnOne]\n-- Conclude the proof by assumption.\nassumption"
+    ]
+}

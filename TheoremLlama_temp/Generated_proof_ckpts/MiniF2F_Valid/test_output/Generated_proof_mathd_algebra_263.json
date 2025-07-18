@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_263",
+    "Statement": "theorem mathd_algebra_263\n  (y : ℝ)\n  (h₀ : 0 ≤ 19 + 3 * y)\n  (h₁ : Real.sqrt (19 + 3 * y) = 7) :\n  y = 10 :=",
+    "Proof": "theorem mathd_algebra_263\n  (y : ℝ)\n  (h₀ : 0 ≤ 19 + 3 * y)\n  (h₁ : Real.sqrt (19 + 3 * y) = 7) :\n  y = 10 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find $y$: $\\sqrt{19+3y} = 7$. Show that it is 10.",
+    "Informal_proof": "Squaring both sides of this equation, we have that $19+3y=49$. Now, we subtract $19$ from both sides of the equation and then divide by $3$ to get that $3y = 30 \\Rightarrow y = 10$.",
+    "NL": "Find $y$: $\\sqrt{19+3y} = 7$. Show that it is 10.\n\nSquaring both sides of this equation, we have that $19+3y=49$. Now, we subtract $19$ from both sides of the equation and then divide by $3$ to get that $3y = 30 \\Rightarrow y = 10$.",
+    "FL_statement": "theorem mathd_algebra_263\n  (y : ℝ)\n  (h₀ : 0 ≤ 19 + 3 * y)\n  (h₁ : Real.sqrt (19 + 3 * y) = 7) :\n  y = 10 :=",
+    "Generated_proof": [
+        "theorem mathd_algebra_263\n  (y : ℝ)\n  (h₀ : 0 ≤ 19 + 3 * y)\n  (h₁ : Real.sqrt (19 + 3 * y) = 7) :\n  y = 10 := by\n  -- **Step 1:** Square both sides of the equation to get rid of the sqrt function.\n  -- This gives us $19 + 3y = 49$.\n  rw [← sq]\n  · exact_mod_cast h₀.not_lt _\n  rw [(mul_right_injective₀' pos_of_nonneg_of_le h₀.le_succ.ne.symm).injective.eq_iff,\n    mul_one, ← add_assoc, add_left_inj₀ (lt_trans zero_lt_three <| add_pos_of_nonneg_of_pos h₀.le <| by decide),\n    ← mul_one_right h₁, add_comm (_ : ℝ), mul_comm _, pow_succ', mul_one, add_sub_cancel'_right, eq_comm,\n    Real.sq_sqrt _ h₀, h₁, sq, mul_one, one_add_one_eq_two_mul, Nat.cast_inj',\n    Nat.cast_eq_natCast]\n    intros; try decide; intro h₃; linarith [*]\n  -- **Step 2:** Subtract 19 from both sides of the equation to get $3y = 30$.\n  -- Then divide both sides by 3 to get $y = 10$."
+    ]
+}

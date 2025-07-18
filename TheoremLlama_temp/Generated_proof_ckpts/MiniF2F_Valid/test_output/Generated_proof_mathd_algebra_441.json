@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_algebra_441",
+    "Statement": "theorem mathd_algebra_441\n  (x : ℝ)\n  (h₀ : x ≠ 0) :\n  12 / (x * x) * (x^4 / (14 * x)) * (35 / (3 * x)) = 10 :=",
+    "Proof": "theorem mathd_algebra_441\n  (x : ℝ)\n  (h₀ : x ≠ 0) :\n  12 / (x * x) * (x^4 / (14 * x)) * (35 / (3 * x)) = 10 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Assuming $x\\ne0$, simplify $\\frac{12}{x \\cdot x} \\cdot \\frac{x^4}{14x}\\cdot \\frac{35}{3x}$. Show that it is 10.",
+    "Informal_proof": "We have  \\begin{align*}\n\\frac{12}{x \\cdot x} \\cdot \\frac{x^4}{14x}\\cdot \\frac{35}{3x} &=\n\\frac{12 \\cdot x^4 \\cdot 35}{x^2\\cdot 14x \\cdot 3x}\\\\& = \\frac{(4 \\cdot 3) \\cdot (5 \\cdot 7) \\cdot x^4}{(3 \\cdot 2 \\cdot 7)(x^2 \\cdot x \\cdot x)}\\\\\n&= \\frac{2\\cdot 2 \\cdot 3 \\cdot 5 \\cdot 7}{2 \\cdot 3 \\cdot 7}\\cdot\\frac{x^4}{x^{4}}\\\\\n&= 2 \\cdot 5 = 10.\n\\end{align*}",
+    "NL": "Assuming $x\\ne0$, simplify $\\frac{12}{x \\cdot x} \\cdot \\frac{x^4}{14x}\\cdot \\frac{35}{3x}$. Show that it is 10.\n\nWe have  \\begin{align*}\n\\frac{12}{x \\cdot x} \\cdot \\frac{x^4}{14x}\\cdot \\frac{35}{3x} &=\n\\frac{12 \\cdot x^4 \\cdot 35}{x^2\\cdot 14x \\cdot 3x}\\\\& = \\frac{(4 \\cdot 3) \\cdot (5 \\cdot 7) \\cdot x^4}{(3 \\cdot 2 \\cdot 7)(x^2 \\cdot x \\cdot x)}\\\\\n&= \\frac{2\\cdot 2 \\cdot 3 \\cdot 5 \\cdot 7}{2 \\cdot 3 \\cdot 7}\\cdot\\frac{x^4}{x^{4}}\\\\\n&= 2 \\cdot 5 = 10.\n\\end{align*}",
+    "FL_statement": "theorem mathd_algebra_441\n  (x : ℝ)\n  (h₀ : x ≠ 0) :\n  12 / (x * x) * (x^4 / (14 * x)) * (35 / (3 * x)) = 10 :=",
+    "Generated_proof": [
+        "-- Assuming x!= 0, simplify 12/x*x * x^4/14x * 35/3x.\n-- Show that it is 10.\n--\n-- We have\n--     12 / (x * x) * (x^4 / (14 * x)) * (35 / (3 * x))\n--   = (12 * x^4 * 35) / ((x^2 * 14 * x * 3 * x)\n--   = (12 * 5 * 7) / (3 * 2 * 7)\n--   = (2 * 5) / 1\n--   = 10.\n-- End of proof.\n-- Start of proof.\n\ntheorem mathd_algebra_441\n  (x : ℝ)\n  (h₀ : x ≠ 0) :\n  12 / (x * x) * (x^4 / (14 * x)) * (35 / (3 * x)) = 10 := by\n  rw [(mul_div_assoc _ _ _, mul_div_assoc _ _ _, mul_right_inj']\n        _ _ _; rw [mul_div_assoc _ _ _, mul_assoc _ _]; linarith [h₀.ne', h₀.ne'] <;>\n        linarith"
+    ]
+}

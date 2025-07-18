@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_100",
+    "Statement": "theorem mathd_numbertheory_100\n  (n : ℕ)\n  (h₀ : 0 < n)\n  (h₁ : Nat.gcd n 40 = 10)\n  (h₂ : Nat.lcm n 40 = 280) :\n  n = 70 :=",
+    "Proof": "theorem mathd_numbertheory_100\n  (n : ℕ)\n  (h₀ : 0 < n)\n  (h₁ : Nat.gcd n 40 = 10)\n  (h₂ : Nat.lcm n 40 = 280) :\n  n = 70 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Find $n$ if $\\gcd(n,40) = 10$ and $\\mathop{\\text{lcm}}[n,40] = 280$. Show that it is 70.",
+    "Informal_proof": "We know that $\\gcd(a,b) \\cdot \\mathop{\\text{lcm}}[a,b] = ab$ for all positive integers $a$ and $b$.  Hence, in this case, $10 \\cdot 280 = n \\cdot 40$, so $n = 10 \\cdot 280/40 = 70$.",
+    "NL": "Find $n$ if $\\gcd(n,40) = 10$ and $\\mathop{\\text{lcm}}[n,40] = 280$. Show that it is 70.\n\nWe know that $\\gcd(a,b) \\cdot \\mathop{\\text{lcm}}[a,b] = ab$ for all positive integers $a$ and $b$.  Hence, in this case, $10 \\cdot 280 = n \\cdot 40$, so $n = 10 \\cdot 280/40 = 70$.",
+    "FL_statement": "theorem mathd_numbertheory_100\n  (n : ℕ)\n  (h₀ : 0 < n)\n  (h₁ : Nat.gcd n 40 = 10)\n  (h₂ : Nat.lcm n 40 = 280) :\n  n = 70 :=",
+    "Generated_proof": [
+        "-- Given gcd(n, 40) = 10 and lcm(n, 40) = 280,\n-- find n.\n\n-- Proof:\n-- Use gcd_lcm_mul_right.symm, Nat.dvd_gcd_left, dvd_mul_left,\n-- Nat.div_mul_cancel, mul_right_injective_of_dvd, Nat.mul_left_injective h₀\n\n-- Apply these facts to simplify the equation 10 * 280 = n * 40.\n-- Use linarith tactic to solve for n.\n-- Obtain n = 70.\n\n-- Conclusion:\n-- n = 70.\n\n-- End of proof."
+    ]
+}

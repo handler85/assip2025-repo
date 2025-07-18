@@ -1,0 +1,12 @@
+{
+    "Name": "mathd_algebra_302",
+    "Statement": "theorem mathd_algebra_302 :\n  (Complex.I / 2)^2 = -(1 / 4) :=",
+    "Proof": "theorem mathd_algebra_302 :\n  (Complex.I / 2)^2 = -(1 / 4) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Evaluate $\\left(\\frac{i}{2}\\right)^2$. Show that it is -\\frac{1}{4}.",
+    "Informal_proof": "$(i/2)^2 = (i^2)/(2^2) = (-1)/4 = -\\frac{1}{4}$",
+    "NL": "Evaluate $\\left(\\frac{i}{2}\\right)^2$. Show that it is -\\frac{1}{4}.\n\n$(i/2)^2 = (i^2)/(2^2) = (-1)/4 = -\\frac{1}{4}$",
+    "FL_statement": "theorem mathd_algebra_302 :\n  (Complex.I / 2)^2 = -(1 / 4) :=",
+    "Generated_proof": []
+}

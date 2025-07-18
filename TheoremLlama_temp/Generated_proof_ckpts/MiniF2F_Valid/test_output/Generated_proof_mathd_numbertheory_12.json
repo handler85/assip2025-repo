@@ -1,0 +1,14 @@
+{
+    "Name": "mathd_numbertheory_12",
+    "Statement": "theorem mathd_numbertheory_12 :\n  Finset.card (Finset.filter (λ x => 20∣x) (Finset.Icc 15 85)) = 4 :=",
+    "Proof": "theorem mathd_numbertheory_12 :\n  Finset.card (Finset.filter (λ x => 20∣x) (Finset.Icc 15 85)) = 4 := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "How many integers between 15 and 85 are divisible by 20? Show that it is 4.",
+    "Informal_proof": "For integers divisible by 20, we look for multiples of 20. The least and greatest multiples of 20 between 15 and 85 are 20 and 80, respectively. Between those two multiples of 20 are 40 and 60. So there are $4$ multiples of 20 between 15 and 85.",
+    "NL": "How many integers between 15 and 85 are divisible by 20? Show that it is 4.\n\nFor integers divisible by 20, we look for multiples of 20. The least and greatest multiples of 20 between 15 and 85 are 20 and 80, respectively. Between those two multiples of 20 are 40 and 60. So there are $4$ multiples of 20 between 15 and 85.",
+    "FL_statement": "theorem mathd_numbertheory_12 :\n  Finset.card (Finset.filter (λ x => 20∣x) (Finset.Icc 15 85)) = 4 :=",
+    "Generated_proof": [
+        "-- Given that the range of integers between 15 and 85 inclusive is 70,\n-- and that 20 is a common divisor of all elements within this range,\n-- this theorem proves that there exist exactly 4 integers within this range\n-- whose quotient upon division by 20 yields a whole number.\n--\n-- Specifically, these four integers are 20, 40, 60, and 80.\n\n-- Proof relies on applying `card_filter` and `card_Ico` lemmas\n-- along with `Int.dvd_emod_lt_dvd_of_emod_eq_zero_left` helper lemma.\n\n-- This helper lemma leverages properties of modular arithmetic\n-- to establish divisibility relationships between integers.\n\n-- In particular, it shows that if a ≡ b (mod n),\n-- then gcd(a,b)|n, which leads to establishing divisibility conditions\n-- necessary for proving existence of exact multiples within the specified range.\n-- aesop?\n-- finish!\n-- (apply card_filter; apply card_Ico)\n\ntheorem mathd_numbertheory_12 :\n  Finset.card (Finset.filter (λ x => 20∣x) (Finset.Icc 15 85)) = 4 :=\n  calc\n    (_ ∣ _) := Int.dvd_emod_lt_dvd_of_emod_eq_zero_left _ _\n      (by rw [emod_Ico_self_eq_card_Ico 20]; rfl); push_cast;\n    _ = 4 := by {apply card_filter; apply card_Ico; repeat decide}"
+    ]
+}

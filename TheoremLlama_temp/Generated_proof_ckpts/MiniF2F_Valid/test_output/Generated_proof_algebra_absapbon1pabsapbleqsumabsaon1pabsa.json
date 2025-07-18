@@ -1,0 +1,14 @@
+{
+    "Name": "algebra_absapbon1pabsapbleqsumabsaon1pabsa",
+    "Statement": "theorem algebra_absapbon1pabsapbleqsumabsaon1pabsa\n  (a b : ℝ) :\n  abs (a + b) / (1 + abs (a + b)) ≤ abs a / (1 + abs a) + abs b / (1 + abs b) :=",
+    "Proof": "theorem algebra_absapbon1pabsapbleqsumabsaon1pabsa\n  (a b : ℝ) :\n  abs (a + b) / (1 + abs (a + b)) ≤ abs a / (1 + abs a) + abs b / (1 + abs b) := sorry",
+    "File_path": "https://github.com/yangky11/miniF2F-lean4",
+    "Commit": "3c2aaced70a9b82218bef2aac766362ff4f943ae",
+    "Informal_statement": "Show that for any real numbers $a$ and $b$, $\\frac{|a+b|}{1+|a+b|}\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|}$.",
+    "Informal_proof": "The LHS is equal to $1 - \\frac{1}{1+|a+b|}$. Hence it suffices to prove $1\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a+b|}$.\nBecause $|a|+|b|\\geq |a+b|$, we have the RHS to satisfy\n\n\\begin{align}\n\\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a+b|} & \\geq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a|+|b|}\\\\\n& \\geq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a|+|b|+|a||b|}\\\\\n& = \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{(1+|a|)(1+|b|)}\\\\\n& = \\frac{|a|(1+|b|)+|b|(1+|a|)+1}{(1+|a|)(1+|b|)}\\\\\n& = \\frac{|a|+|b|+1+2|a||b|}{(1+|a|)(1+|b|)}\\\\\n& \\geq \\frac{(1+|a|)(1+|b|)}{(1+|a|)(1+|b|)}\\\\\n& = 1.\n\\end{align}\n\nTherefore the inequality holds.",
+    "NL": "Show that for any real numbers $a$ and $b$, $\\frac{|a+b|}{1+|a+b|}\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|}$.\n\nThe LHS is equal to $1 - \\frac{1}{1+|a+b|}$. Hence it suffices to prove $1\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a+b|}$.\nBecause $|a|+|b|\\geq |a+b|$, we have the RHS to satisfy\n\n\\begin{align}\n\\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a+b|} & \\geq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a|+|b|}\\\\\n& \\geq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a|+|b|+|a||b|}\\\\\n& = \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{(1+|a|)(1+|b|)}\\\\\n& = \\frac{|a|(1+|b|)+|b|(1+|a|)+1}{(1+|a|)(1+|b|)}\\\\\n& = \\frac{|a|+|b|+1+2|a||b|}{(1+|a|)(1+|b|)}\\\\\n& \\geq \\frac{(1+|a|)(1+|b|)}{(1+|a|)(1+|b|)}\\\\\n& = 1.\n\\end{align}\n\nTherefore the inequality holds.",
+    "FL_statement": "theorem algebra_absapbon1pabsapbleqsumabsaon1pabsa\n  (a b : ℝ) :\n  abs (a + b) / (1 + abs (a + b)) ≤ abs a / (1 + abs a) + abs b / (1 + abs b) :=",
+    "Generated_proof": [
+        "-- Show that for any real numbers $a$ and $b$, $\\frac{|a+b|}{1+|a+b|}\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|}$.\n--\n-- The LHS is equal to $1 - \\frac{1}{1+|a+b|}$. Hence it suffices to prove $1\\leq \\frac{|a|}{1+|a|}+\\frac{|b|}{1+|b|} + \\frac{1}{1+|a+b|}$.\n-- Because $|a|+|b|\\geq |a+b|$, we have the RHS to satisfy\n--"
+    ]
+}
