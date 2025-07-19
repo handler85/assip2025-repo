@@ -4,6 +4,7 @@ import json
 import argparse
 from typing import List, Dict, Any
 from tqdm import tqdm
+from pathlib import Path
 
 def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: int) -> Dict[str, Any]:
     """
@@ -40,7 +41,7 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
         # - `check=False`: Prevents raising an exception on non-zero exit codes.
         # - `timeout`: Prevents the script from hanging on a complex proof.
         process = subprocess.run(
-            [lean_cmd, file_path],
+            ['lake', 'env', 'lean', file_path],
             capture_output=True,
             text=True,
             check=False,
