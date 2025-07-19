@@ -21,7 +21,6 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
     """
     problem_name = os.path.splitext(os.path.basename(file_path))[0]
     
-    # 1. Read the content of the .lean file
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             proof_content = f.read()
@@ -33,13 +32,8 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
             "generated_proof": ""
         }
 
-    # 2. Run the Lean compiler on the file
     try:
-        # We use subprocess.run to execute the 'lean' command.
-        # - `capture_output=True`: Captures stdout and stderr.
-        # - `text=True`: Decodes stdout/stderr as text.
-        # - `check=False`: Prevents raising an exception on non-zero exit codes.
-        # - `timeout`: Prevents the script from hanging on a complex proof.
+        
         process = subprocess.run(
             ['lake', 'env', 'lean', file_path],
             capture_output=True,
@@ -49,21 +43,14 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
             timeout=timeout
         )
 
-        # 3. Determine the status based on the compiler's exit code
         if process.returncode == 0:
-            # Success: exit code 0 means no errors.
             status = "success"
-            # Lean often prints to stdout even on success, so we clear the error message.
             error_message = ""
         else:
-            # Failure: any other exit code indicates an error.
             status = "failed"
-            # The error message from Lean is usually printed to stderr.
-            # Sometimes there's relevant info in stdout too, so we combine them.
             error_message = (process.stdout + process.stderr).strip()
 
     except FileNotFoundError:
-        # This error occurs if the 'lean' command itself is not found.
         return {
             "problem_name": problem_name,
             "status": "failed",
@@ -71,7 +58,6 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
             "generated_proof": proof_content
         }
     except subprocess.TimeoutExpired:
-        # This error occurs if the process takes too long.
         return {
             "problem_name": problem_name,
             "status": "failed",
@@ -79,7 +65,6 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
             "generated_proof": proof_content
         }
 
-    # 4. Assemble the final result dictionary for this file
     return {
         "problem_name": problem_name,
         "status": status,
@@ -88,9 +73,7 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
     }
 
 def main():
-    """
-    Main function to parse arguments and orchestrate the processing of .lean files.
-    """
+
     parser = argparse.ArgumentParser(
         description="Run the Lean compiler on a directory of .lean files and record the results in a JSON file.",
         formatter_class=argparse.RawTextHelpFormatter
@@ -121,7 +104,6 @@ def main():
         print(f"Error: Input directory '{args.input_dir}' not found.")
         return
 
-    # Find all .lean files in the specified directory
     lean_files = [f for f in os.listdir(args.input_dir) if f.endswith('.lean')]
 
     if not lean_files:
@@ -131,16 +113,13 @@ def main():
     all_results = []
     print(f"Found {len(lean_files)} .lean files to process...")
     EXEC_PATH = './minif2f-deepseek'
-    # Process each file with a progress bar
     for filename in tqdm(lean_files, desc="Compiling Lean files"):
         file_path = os.path.join(args.input_dir, filename)
         result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
         all_results.append(result)
 
-    # Write the collected results to the output JSON file
     try:
         with open(args.output_file, 'w', encoding='utf-8') as f:
-            # `indent=4` makes the JSON file human-readable
             json.dump(all_results, f, indent=4, ensure_ascii=False)
         print(f"\nSuccessfully processed {len(all_results)} files.")
         print(f"Results have been saved to '{args.output_file}'")

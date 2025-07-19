@@ -7,7 +7,6 @@ import os
 
 def check_folder_exit(folder_path):
     if not os.path.exists(folder_path):
-        # 如果文件夹不存在，则创建它
         os.makedirs(folder_path)
         print(f"creating '{folder_path}'")
     else:
@@ -25,11 +24,8 @@ def write_to_file(filePath, txt_to_write):
 # This function will read all json files in the folder and return a list of all json file
 def read_json_in_folder(folder_path):
     json_list = []
-    # 遍历文件夹中的所有文件
     for filename in os.listdir(folder_path):
-        # 检查文件是否是 JSON 文件
         if filename.endswith(".json"):
-            # 构造文件的完整路径
             file_path = os.path.join(folder_path, filename)
             curr_file = read_from_json(file_path)
             json_list += [curr_file]
@@ -62,7 +58,6 @@ def load_dataset(dataset_path,
     return Dataset.from_dict(dataset_dic)
 
 def extract_thm_name(lean_code: str) -> str:
-    # 定义正则表达式匹配theorem名称
     match = re.search(r'theorem\s+([a-zA-Z0-9_]+)', lean_code)
     if match:
         return match.group(1)
@@ -89,7 +84,6 @@ def read_jsonl(file_path):
     data = []
     with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
-            # 将每行转换为字典并添加到列表中
             data.append(json.loads(line.strip()))
     return data
 
