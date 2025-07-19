@@ -133,7 +133,7 @@ def main():
     # Process each file with a progress bar
     for filename in tqdm(lean_files, desc="Compiling Lean files"):
         file_path = os.path.join(args.input_dir, filename)
-        result = process_lean_file(file_path, args.lean_cmd, args.timeout)
+        result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
         all_results.append(result)
 
     # Write the collected results to the output JSON file
