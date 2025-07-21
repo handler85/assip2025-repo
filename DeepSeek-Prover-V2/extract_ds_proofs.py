@@ -11,12 +11,10 @@ def extract_proofs_to_lean_files(input_json_path, output_directory):
         input_json_path (str): The path to the input JSON file.
         output_directory (str): The path to the directory where .lean files will be saved.
     """
-    # 1. Validate the input file path
     if not os.path.exists(input_json_path):
         print(f"Error: Input file not found at '{input_json_path}'")
         return
 
-    # 2. Create the output directory if it doesn't exist
     try:
         os.makedirs(output_directory, exist_ok=True)
         print(f"Output will be saved in '{os.path.abspath(output_directory)}'")
@@ -24,7 +22,6 @@ def extract_proofs_to_lean_files(input_json_path, output_directory):
         print(f"Error: Could not create output directory '{output_directory}'. {e}")
         return
 
-    # 3. Read and parse the JSON file
     try:
         with open(input_json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -35,20 +32,16 @@ def extract_proofs_to_lean_files(input_json_path, output_directory):
         print(f"An unexpected error occurred while reading the file: {e}")
         return
 
-    # 4. Check if the loaded data is a list
     if not isinstance(data, list):
         print(f"Error: The JSON file does not contain a list of entries. Expected format: [{{...}}, {{...}}]")
         return
 
-    # 5. Iterate through the list of entries and write each proof to a new file
     proof_count = 0
     for i, entry in enumerate(data):
-        # Ensure the entry is a dictionary
         if not isinstance(entry, dict):
             print(f"Warning: Item at index {i} is not a JSON object (dictionary). Skipping.")
             continue
 
-        # Extract the 'generated_proof' string from the entry
         proof_text = entry.get("generated_proof")
         problem_name = entry.get("problem_name")
         if proof_text is None:
@@ -59,7 +52,6 @@ def extract_proofs_to_lean_files(input_json_path, output_directory):
             print(f"Warning: Value for 'generated_proof' at index {i} is not a string. Skipping.")
             continue
             
-        # Define the output filename
         output_filename = f"{problem_name}.lean"
         output_filepath = os.path.join(output_directory, output_filename)
 
