@@ -5,7 +5,7 @@ import time
 
 torch.manual_seed(30)
 
-model_id = "DeepSeek-Prover-V2-7B" 
+model_id = "deepseek-ai/DeepSeek-Prover-V2-7B" 
 json_file_path = "MiniF2F_test_Lean4.json" 
 output_file_path = "deepseek_generated_proofs.json"  
 
@@ -53,7 +53,7 @@ results = []
 total_time = 0
 
 # Process each problem
-for i, problem in enumerate(problems):
+for i, problem in enumerate(problems[160:], start=160):
     print(f"\nProcessing problem {i+1}/{len(problems)}: {problem['Name']}")
     
     try:
@@ -66,15 +66,17 @@ for i, problem in enumerate(problems):
         ]
         
         # Tokenize input
+        device = next(model.parameters()).device
         inputs = tokenizer.apply_chat_template(
             chat, 
             tokenize=True, 
             add_generation_prompt=True, 
             return_tensors="pt"
-        ).to(model.device)
+        ).to(device)
         
         # Generate proof
         start_time = time.time()
+        print(model.device, device)
         with torch.no_grad():  # Save memory
             outputs = model.generate(
                 inputs, 
@@ -86,7 +88,6 @@ for i, problem in enumerate(problems):
         generation_time = time.time() - start_time
         total_time += generation_time
         
-        # Decode the generated text
         generated_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
         
         # Extract just the generated part (remove the input prompt)
