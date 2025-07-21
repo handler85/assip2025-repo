@@ -40,14 +40,7 @@ The plan should highlight key ideas, intermediate lemmas, and proof structures t
 # Function to create formal statement from problem data
 def create_formal_statement(problem):
     formal_statement = f"""
-import Mathlib
-import Aesop
-set_option maxHeartbeats 0
-open BigOperators Real Nat Topology Rat
-
-/-- {problem.get('Informal_statement', 'No informal statement provided')} -/
-{problem['Statement']} by
-  sorry
+{problem.get('formal_statement')}  sorry
 """.strip()
     return formal_statement
 
@@ -135,11 +128,9 @@ def process_batch(batch_problems, batch_start_idx):
                 generated_proof = generated_text[len(input_text):].strip()
                 
                 result = {
-                    "problem_name": problem['Name'],
-                    "original_statement": problem['Statement'],
-                    "informal_statement": problem.get('Informal_statement', ''),
-                    "informal_proof": problem.get('Informal_proof', ''),
-                    "formal_statement_with_imports": formal_statements[i],
+                    "problem_name": problem['name'],
+                    "informal_prefix": problem.get('informal_prefix'),
+                    "formal_statement_with_imports": problem.get('formal_statement'),
                     "generated_proof": generated_proof,
                     "generation_time": generation_time / len(batch_problems),  # Approximate per-problem time
                     "batch_generation_time": generation_time,
@@ -147,7 +138,7 @@ def process_batch(batch_problems, batch_start_idx):
                     "success": True
                 }
                 batch_results.append(result)
-                print(f"Generated proof for {problem['Name']} (batch {batch_start_idx//BATCH_SIZE + 1})")
+                print(f"Generated proof for {problem['name']} (batch {batch_start_idx//BATCH_SIZE + 1})")
                 
         except Exception as e:
             print(f"Batch processing failed, falling back to sequential: {str(e)}")
@@ -160,7 +151,7 @@ def process_batch(batch_problems, batch_start_idx):
 
 def process_single_problem(problem, problem_idx):
     try:
-        print(f"  Processing problem {problem_idx + 1}: {problem['Name']}")
+        print(f"  Processing problem {problem_idx + 1}: {problem['name']}")
         
         # Create formal statement
         formal_statement = create_formal_statement(problem)
@@ -192,30 +183,28 @@ def process_single_problem(problem, problem_idx):
         generated_proof = generated_text[len(input_text):].strip()
         
         result = {
-            "problem_name": problem['Name'],
-            "original_statement": problem['Statement'],
-            "informal_statement": problem.get('Informal_statement', ''),
-            "informal_proof": problem.get('Informal_proof', ''),
-            "formal_statement_with_imports": formal_statement,
+            "problem_name": problem['name'],
+            "informal_prefix": problem.get('informal_prefix'),
+            "formal_statement_with_imports": problem.get('formal_statement'),
             "generated_proof": generated_proof,
             "generation_time": generation_time,
             "success": True
         }
         
-        print(f"Generated proof for {problem['Name']} in {generation_time:.2f}s")
+        print(f"Generated proof for {problem['name']} in {generation_time:.2f}s")
         return result
         
     except Exception as e:
-        print(f"Error processing {problem['Name']}: {str(e)}")
+        print(f"Error processing {problem['name']}: {str(e)}")
         return {
-            "problem_name": problem['Name'],
-            "original_statement": problem['Statement'],
+            "problem_name": problem['name'],
+            "formal_statement_with_imports": problem.get('formal_statement'),
             "error": str(e),
             "success": False
         }
 
 # Process problems in batches
-for batch_start in range(160, len(problems), BATCH_SIZE):
+for batch_start in range(0, len(problems), BATCH_SIZE):
     batch_end = min(batch_start + BATCH_SIZE, len(problems))
     batch_problems = problems[batch_start:batch_end]
     
