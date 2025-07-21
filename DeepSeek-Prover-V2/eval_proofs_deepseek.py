@@ -76,16 +76,24 @@ def main():
         return
 
     print(f"Found {len(all_problems)} problems to evaluate.")
-    
     evaluation_results = []
-    
+
     for problem in tqdm(all_problems, desc="Evaluating Problems"):
         problem_name = problem.get("problem_name")
-        generated_proofs = problem.get("generated_proof", [])
-        if not generated_proofs:
+        generated_proofs_data = problem.get("generated_proof", []) 
+    
+        if isinstance(generated_proofs_data, str):
+            generated_proofs_list = [generated_proofs_data]
+        else:
+            generated_proofs_list = generated_proofs_data
+
+        if not generated_proofs_list:
             continue 
 
-        for i, proof_attempt in enumerate(generated_proofs):
+        for i, proof_attempt in enumerate(generated_proofs_list):
+            if not proof_attempt or not isinstance(proof_attempt, str):
+                continue
+
             evaluation = evaluate_lean_proof(proof_attempt, LEAN_PROJECT_PATH, LEAN_EXEC_PATH)
             
             result_record = {
@@ -93,9 +101,10 @@ def main():
                 "attempt_index": i,
                 "status": evaluation["status"],
                 "error_message": evaluation["error_message"],
-                "generated_proof": proof_attempt # Keep the original proof for reference
+                "generated_proof": proof_attempt
             }
             evaluation_results.append(result_record)
+    
 
     print(f"\nEvaluation complete. Saving {len(evaluation_results)} results to: {OUTPUT_JSON_PATH}")
     
