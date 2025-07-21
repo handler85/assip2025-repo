@@ -6,9 +6,8 @@ import time
 torch.manual_seed(30)
 
 model_id = "deepseek-ai/DeepSeek-Prover-V2-7B" 
-json_file_path = "MiniF2F_test_Lean4.json" 
+json_file_path = "minif2f_train.jsonl" 
 output_file_path = "deepseek_generated_proofs.json"  
-
 print("Loading model and tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
@@ -19,8 +18,10 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 print("Model loaded successfully!")
 
+problems = []
 with open(json_file_path, 'r', encoding='utf-8') as f:
-    problems = json.load(f)
+    for line in f:
+        problems.append(json.loads(line))
 
 print(f"Loaded {len(problems)} problems from {json_file_path}")
 
