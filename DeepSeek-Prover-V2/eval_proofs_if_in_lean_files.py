@@ -14,6 +14,7 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
     Args:
         file_path (str): The full path to the .lean file.
         lean_cmd (str): The command to execute the Lean compiler.
+        exec_path (str): The execution path for the Lean command.
         timeout (int): Timeout in seconds for the lean process.
 
     Returns:
@@ -33,7 +34,6 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
         }
 
     try:
-        
         process = subprocess.run(
             ['lake', 'env', 'lean', file_path],
             capture_output=True,
@@ -44,8 +44,29 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
         )
 
         if process.returncode == 0:
-            status = "success"
-            error_message = ""
+            # Lean compiler reports success. Now, check for the "no proof" condition.
+            anchor_line = "open BigOperators Real Nat Topology Rat"
+            
+            # Find the position of the anchor line
+            anchor_pos = proof_content.find(anchor_line)
+
+            is_commented_out = False
+            # Check only if the anchor line is actually present in the file
+            if anchor_pos != -1:
+                # Get the part of the string *after* the anchor line
+                text_after_anchor = proof_content[anchor_pos + len(anchor_line):]
+                
+                # Condition: The text after the anchor (ignoring whitespace) starts with '/-'
+                # AND the entire file content (ignoring whitespace) ends with '-/'
+                if text_after_anchor.strip().startswith('/-') and proof_content.strip().endswith('-/'):
+                    is_commented_out = True
+
+            if is_commented_out:
+                status = "failed"
+                error_message = "Error: No proof generated (stuck in repetitive loop)"
+            else:
+                status = "success"
+                error_message = ""
         else:
             status = "failed"
             error_message = (process.stdout + process.stderr).strip()
@@ -112,7 +133,12 @@ def main():
 
     all_results = []
     print(f"Found {len(lean_files)} .lean files to process...")
+    # NOTE: The execution path is hardcoded here, ensure this directory exists.
     EXEC_PATH = './minif2f-deepseek'
+    if not os.path.isdir(EXEC_PATH):
+        print(f"Error: Execution directory '{EXEC_PATH}' not found. Please ensure it exists and is a valid Lean project.")
+        return
+        
     for filename in tqdm(lean_files, desc="Compiling Lean files"):
         file_path = os.path.join(args.input_dir, filename)
         result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
