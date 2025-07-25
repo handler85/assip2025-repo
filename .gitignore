@@ -2,4 +2,6 @@ minif2f_saved/
 saved_theorem_llama/
 data/
 saved_models/
-
+TheoremLlama/
+src/
+notebooks/
