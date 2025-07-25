@@ -121,7 +121,11 @@ def main():
         file_path = os.path.join(args.input_dir, filename)
         result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
         all_results.append(result)
-
+        try:
+            with open(args.output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_results, f, indent=4, ensure_ascii=False)
+        except IOError as e:
+            print(f"\nError writing to output file '{args.output_file}': {e}")
     try:
         with open(args.output_file, 'w', encoding='utf-8') as f:
             json.dump(all_results, f, indent=4, ensure_ascii=False)
