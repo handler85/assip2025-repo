@@ -83,22 +83,18 @@ def main():
     )
     parser.add_argument(
         "input_dir",
-        help="The directory containing the .lean files to process."
     )
     parser.add_argument(
         "output_file",
-        help="The path to the output JSON file where results will be saved."
     )
     parser.add_argument(
         "--lean_cmd",
         default="lake env lean",
-        help="The command to run the Lean 4 compiler (e.g., '/path/to/lean' or just 'lean' if in PATH).\nDefault: 'lean'"
     )
     parser.add_argument(
         "--timeout",
         type=int,
         default=60,
-        help="Timeout in seconds for compiling a single Lean file.\nDefault: 60"
     )
 
     args = parser.parse_args()
