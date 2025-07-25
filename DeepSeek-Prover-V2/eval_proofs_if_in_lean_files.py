@@ -7,19 +7,7 @@ from tqdm import tqdm
 from pathlib import Path
 
 def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: int) -> Dict[str, Any]:
-    """
-    Processes a single .lean file: reads its content, runs the Lean compiler,
-    and captures the result.
-
-    Args:
-        file_path (str): The full path to the .lean file.
-        lean_cmd (str): The command to execute the Lean compiler.
-        exec_path (str): The execution path for the Lean command.
-        timeout (int): Timeout in seconds for the lean process.
-
-    Returns:
-        A dictionary containing the processing result.
-    """
+    
     problem_name = os.path.splitext(os.path.basename(file_path))[0]
     
     try:
@@ -44,20 +32,14 @@ def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: in
         )
 
         if process.returncode == 0:
-            # Lean compiler reports success. Now, check for the "no proof" condition.
             anchor_line = "open BigOperators Real Nat Topology Rat"
             
-            # Find the position of the anchor line
             anchor_pos = proof_content.find(anchor_line)
 
             is_commented_out = False
-            # Check only if the anchor line is actually present in the file
             if anchor_pos != -1:
-                # Get the part of the string *after* the anchor line
                 text_after_anchor = proof_content[anchor_pos + len(anchor_line):]
                 
-                # Condition: The text after the anchor (ignoring whitespace) starts with '/-'
-                # AND the entire file content (ignoring whitespace) ends with '-/'
                 if text_after_anchor.strip().startswith('/-') and proof_content.strip().endswith('-/'):
                     is_commented_out = True
 
@@ -133,7 +115,7 @@ def main():
 
     all_results = []
     print(f"Found {len(lean_files)} .lean files to process...")
-    # NOTE: The execution path is hardcoded here, ensure this directory exists.
+    #exec_path hardcoded
     EXEC_PATH = './minif2f-deepseek'
     if not os.path.isdir(EXEC_PATH):
         print(f"Error: Execution directory '{EXEC_PATH}' not found. Please ensure it exists and is a valid Lean project.")

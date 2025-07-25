@@ -13,24 +13,17 @@ def process_lean_file(file_path: Path, dry_run: bool = False):
     print(f"--- Checking: {file_path.name}")
 
     try:
-        # Read the entire file content
         original_content = file_path.read_text(encoding='utf-8')
 
-        # Define the specific multi-line trigger sequence we're looking for
-        # This is "### Complete Lean 4 Proof", an empty line, and then "```lean4"
         trigger_sequence = "### Complete Lean 4 Proof\n\n```lean4"
-        # 1. Check if the file contains the trigger sequence
         if trigger_sequence not in original_content:
             print("    -> Skipping: Required trigger sequence not found.")
             return
 
         print("    -> Found trigger sequence. Preparing modifications...")
 
-        # If we are here, the file is a candidate for modification.
         modified_content = original_content
 
-        # 2. Insert "/-" before "### Detailed"
-        # We use .replace() with a count of 1 to be safe, though it's likely unique.
         detailed_statement = "### Detailed"
         if detailed_statement in modified_content:
             modified_content = modified_content.replace(
@@ -43,9 +36,7 @@ def process_lean_file(file_path: Path, dry_run: bool = False):
             print("    - Warning: '### Detailed' not found, skipping this action.")
 
 
-        # 3. Modify the specific ```lean4 block
-        # This replaces "```lean4" with "lean4" and adds "-/" on a new line after it.
-        # This is the most critical replacement.
+       
         replacement_sequence = "### Complete Lean 4 Proof\n\nlean4\n-/"
         if trigger_sequence in modified_content:
             modified_content = modified_content.replace(
@@ -55,14 +46,11 @@ def process_lean_file(file_path: Path, dry_run: bool = False):
             )
             print("    - Action: Modified the 'Complete Proof' code block and added '-/'.")
         else:
-            # This case should not be reachable due to the initial check, but it's good practice
             print("    - Warning: Trigger sequence disappeared during processing. Aborting modification.")
             return
 
-        # 4. Remove the "```" at the very end of the file.
-        # We split the content into lines to reliably find the last non-empty line.
+       
         lines = modified_content.splitlines()
-        # Find the last non-empty line
         last_line_index = -1
         for i in range(len(lines) - 1, -1, -1):
             if lines[i].strip():
@@ -70,9 +58,7 @@ def process_lean_file(file_path: Path, dry_run: bool = False):
                 break
         
         if last_line_index != -1 and lines[last_line_index].strip() == "```":
-            # Reconstruct the content without the last line that contains ```
             modified_content = "\n".join(lines[:last_line_index])
-            # Add a trailing newline for good file hygiene
             if modified_content:
                 modified_content += "\n"
             print("    - Action: Removed the final '```' from the end of the file.")
@@ -80,7 +66,6 @@ def process_lean_file(file_path: Path, dry_run: bool = False):
             print("    - Warning: Final '```' not found at the end of the file. Skipping this action.")
 
 
-        # 5. Write the changes back to the file if not a dry run
         if dry_run:
             print("    -> DRY RUN: No changes were written to the file.")
         else:
@@ -126,7 +111,6 @@ def main():
         print("*** Please ensure you have a backup of your files. ***\n")
 
 
-    # Iterate through all files ending with .lean in the specified directory
     lean_files = list(directory_path.glob("*.lean"))
 
     if not lean_files:

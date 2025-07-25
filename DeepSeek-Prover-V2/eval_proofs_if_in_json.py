@@ -13,15 +13,10 @@ LEAN_EXEC_PATH = './minif2f-deepseek'
 
 
 def evaluate_lean_proof(proof_string, lean_project_path, lean_exec_path, temp_filename="TempProof.lean"):
-    """
-    Evaluates a single Lean proof string by writing it to a file
-    and running the Lean compiler on it.
-    """
+    
    
     lean_file_header = "import Mathlib\nimport Aesop\nset_option maxHeartbeats 0\nopen BigOperators Real Nat Topology Rat\n"
     
-    # Handle cases where the model might regenerate the theorem statement
-    # We only want the proof tactics, so we look for `:= by`
     if ":= by" in proof_string:
         full_lean_code = lean_file_header + proof_string
     else:

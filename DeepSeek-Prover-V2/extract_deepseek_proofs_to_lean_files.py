@@ -3,14 +3,7 @@ import os
 import argparse
 
 def extract_proofs_to_lean_files(input_json_path, output_directory):
-    """
-    Parses a JSON file containing a list of objects. For each object, it finds
-    a "generated_proof" key and writes its string value to a .lean file.
-
-    Args:
-        input_json_path (str): The path to the input JSON file.
-        output_directory (str): The path to the directory where .lean files will be saved.
-    """
+   
     if not os.path.exists(input_json_path):
         print(f"Error: Input file not found at '{input_json_path}'")
         return
@@ -67,7 +60,6 @@ def extract_proofs_to_lean_files(input_json_path, output_directory):
     print(f"\nExtraction complete. Wrote {proof_count} proof(s).")
 
 def main():
-    """Main function to set up argument parsing."""
     parser = argparse.ArgumentParser(
         description="Extracts 'generated_proof' from each entry in a JSON list and saves them as individual .lean files.",
         formatter_class=argparse.RawTextHelpFormatter
