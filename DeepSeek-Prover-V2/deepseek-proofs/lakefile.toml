@@ -7,12 +7,21 @@ defaultTargets = ["DeepseekProofs"]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
 autoImplicit = false
 relaxedAutoImplicit = false
-weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
 
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
+source = "git"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.9.0"
+
+[[require]]
+name = "aesop"
+scope = "leanprover-community"
+source = "git"
+git = "https://github.com/leanprover-community/aesop"
+rev = "v4.9.0"
 
 [[lean_lib]]
 name = "DeepseekProofs"

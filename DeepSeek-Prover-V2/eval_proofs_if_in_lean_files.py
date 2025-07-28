@@ -6,6 +6,19 @@ from typing import List, Dict, Any
 from tqdm import tqdm
 from pathlib import Path
 
+def check_if_already_have(file_path, search_string):
+    if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+        return False
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+            if search_string in content:
+                return True
+            else:
+                return False
+    except FileNotFoundError:
+        return False
+
 def process_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: int) -> Dict[str, Any]:
     
     problem_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -94,7 +107,7 @@ def main():
     parser.add_argument(
         "--timeout",
         type=int,
-        default=60,
+        default=150,
     )
 
     args = parser.parse_args()
@@ -119,13 +132,16 @@ def main():
         
     for filename in tqdm(lean_files, desc="Compiling Lean files"):
         file_path = os.path.join(args.input_dir, filename)
-        result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
-        all_results.append(result)
-        try:
-            with open(args.output_file, 'w', encoding='utf-8') as f:
-                json.dump(all_results, f, indent=4, ensure_ascii=False)
-        except IOError as e:
-            print(f"\nError writing to output file '{args.output_file}': {e}")
+        if check_if_already_have("deepseek_proofs_eval2.json", f'"{os.path.splitext(os.path.basename(file_path))[0]}"'):
+            print(f"Found '{os.path.splitext(os.path.basename(file_path))[0]}' in the file. Will not dump new data.")
+        else:
+            result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
+            all_results.append(result)
+            try:
+                with open(args.output_file, 'w', encoding='utf-8') as f:
+                    json.dump(all_results, f, indent=4, ensure_ascii=False)
+            except IOError as e:
+                print(f"\nError writing to output file '{args.output_file}': {e}")
     try:
         with open(args.output_file, 'w', encoding='utf-8') as f:
             json.dump(all_results, f, indent=4, ensure_ascii=False)
