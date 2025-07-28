@@ -5,6 +5,7 @@ import argparse
 from typing import List, Dict, Any
 from tqdm import tqdm
 from pathlib import Path
+import concurrent.futures
 
 def check_if_already_have(file_path, search_string):
     if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
@@ -107,7 +108,7 @@ def main():
     parser.add_argument(
         "--timeout",
         type=int,
-        default=150,
+        default=60,
     )
 
     args = parser.parse_args()
@@ -125,23 +126,30 @@ def main():
     all_results = []
     print(f"Found {len(lean_files)} .lean files to process...")
     #exec_path hardcoded
-    EXEC_PATH = './minif2f-deepseek'
+    EXEC_PATH = './deepseek-proofs'
     if not os.path.isdir(EXEC_PATH):
         print(f"Error: Execution directory '{EXEC_PATH}' not found. Please ensure it exists and is a valid Lean project.")
         return
+    num_workers = os.cpu_count()
+    
+    # Use a ProcessPoolExecutor to run compilations in parallel
+    with concurrent.futures.ProcessPoolExecutor(max_workers=num_workers) as executor:
+        # Create a future for each file processing task
+        future_to_file = {
+            executor.submit(process_lean_file, os.path.join(args.input_dir, filename), args.lean_cmd, EXEC_PATH, args.timeout): filename 
+            for filename in lean_files
+        }
         
-    for filename in tqdm(lean_files, desc="Compiling Lean files"):
-        file_path = os.path.join(args.input_dir, filename)
-        if check_if_already_have("deepseek_proofs_eval2.json", f'"{os.path.splitext(os.path.basename(file_path))[0]}"'):
-            print(f"Found '{os.path.splitext(os.path.basename(file_path))[0]}' in the file. Will not dump new data.")
-        else:
-            result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
-            all_results.append(result)
+        # Use tqdm to show progress as tasks complete
+        for future in tqdm(concurrent.futures.as_completed(future_to_file), total=len(lean_files), desc="Compiling Lean files"):
             try:
-                with open(args.output_file, 'w', encoding='utf-8') as f:
-                    json.dump(all_results, f, indent=4, ensure_ascii=False)
-            except IOError as e:
-                print(f"\nError writing to output file '{args.output_file}': {e}")
+                result = future.result()
+                all_results.append(result)
+            except Exception as exc:
+                filename = future_to_file[future]
+                print(f"\nError processing {filename}: {exc}")
+
+    # Now write all results to the file at the end
     try:
         with open(args.output_file, 'w', encoding='utf-8') as f:
             json.dump(all_results, f, indent=4, ensure_ascii=False)
@@ -150,6 +158,30 @@ def main():
     except IOError as e:
         print(f"\nError writing to output file '{args.output_file}': {e}")
 
+'''
+    for filename in tqdm(lean_files, desc="Compiling Lean files"):
+        file_path = os.path.join(args.input_dir, filename)
+        
+        #if check_if_already_have("deepseek_proofs_eval2.json", f'"{os.path.splitext(os.path.basename(file_path))[0]}"'):
+         #   print(f"Found '{os.path.splitext(os.path.basename(file_path))[0]}' in the file. Will not dump new data.")
+        
+        #else:
+            
+        result = process_lean_file(file_path, args.lean_cmd, EXEC_PATH, args.timeout)
+        all_results.append(result)
+        try:
+            with open(args.output_file, 'w', encoding='utf-8') as f:
+                json.dump(all_results, f, indent=4, ensure_ascii=False)
+        except IOError as e:
+            print(f"\nError writing to output file '{args.output_file}': {e}")
+    try:
+        with open(args.output_file, 'w', encoding='utf-8') as f:
+            json.dump(all_results, f, indent=4, ensure_ascii=False)
+        print(f"\nSuccessfully processed {len(all_results)} files.")
+        print(f"Results have been saved to '{args.output_file}'")
+    except IOError as e:
+        print(f"\nError writing to output file '{args.output_file}': {e}")
 
+'''
 if __name__ == "__main__":
     main()
