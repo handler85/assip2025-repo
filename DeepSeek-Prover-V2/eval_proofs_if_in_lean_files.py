@@ -108,7 +108,7 @@ def main():
     parser.add_argument(
         "--timeout",
         type=int,
-        default=60,
+        default=120,
     )
 
     args = parser.parse_args()
