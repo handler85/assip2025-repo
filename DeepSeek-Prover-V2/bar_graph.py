@@ -113,6 +113,6 @@ for spine in ax.spines.values():
     spine.set_linewidth(0.8)
 
 # plt.savefig("deepseek_error_dist.pdf", bbox_inches="tight", facecolor='white', edgecolor='none', dpi=300)
-plt.savefig("deepseek_error_dist.png", bbox_inches="tight", facecolor='white', edgecolor='none', dpi=300)
+plt.savefig("deepseek_error_dist.png", bbox_inches="tight", facecolor='white', edgecolor='none', dpi=600)
 
 plt.show()
