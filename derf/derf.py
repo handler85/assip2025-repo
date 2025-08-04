@@ -15,6 +15,8 @@
 #repeat
 
 #WRITE IN ALL MISSING PATHS
+#figure out gpu cpu (does concurrent work)
+#run thru whole code check it
 
 import json
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -27,6 +29,8 @@ import subprocess
 from typing import List, Dict, Any
 from tqdm import tqdm
 import concurrent.futures
+import sys
+import google.generativeai as genai
 torch.manual_seed(30)
 
 model_id = "deepseek-ai/DeepSeek-Prover-V2-7B" 
@@ -452,3 +456,108 @@ except IOError as e:
         print(f"\nError writing to output file '{lean_eval_output_file}': {e}")
 
 '''
+
+
+try:
+    api_key = os.environ["GOOGLE_API_KEY"]
+    genai.configure(api_key=api_key)
+except KeyError:
+    print("ERROR: GOOGLE_API_KEY environment variable not set.")
+    print("Please set the environment variable and try again.")
+    sys.exit(1) 
+
+
+def call_gemini_for_fix(problem_data: dict) -> str | None:
+    
+    model = genai.GenerativeModel('gemini-pro')
+
+    prompt = f"""
+    The following Lean 4 proof attempt for the problem '{problem_data.get("problem_name")}' failed.
+
+    The error message was: 
+    '{problem_data.get("error_message", "No error message.")}'
+
+    Here is the full generated proof:
+    --- FAILED PROOF ---
+    {problem_data.get("generated_proof", "No proof provided.")}
+    --- END FAILED PROOF ---
+
+    Based on the error and the code, classify the error into one of the following error categories:
+
+    T: Timeout: Brute-Force/Inefficient Strategy: The model defaults to computationally expensive tactics like interval_cases on large ranges or nlinarith/omega on goals that are too complex or non-linear for them to solve quickly, often resulting in a timeout or tactic failure. For this error type, the NL proof and Lean proof structure are correct, but the tactics used are inefficient.
+    M: Mathematical Error: The model makes a mathematical mistake in its initial NL reasoning (e.g., miscalculation, wrong theorem application), or fails to grasp the correct solution to the problem, which makes the subsequent Lean proof attempt futile.
+    L: Repetitive Loop/Generation Failure (subset of M-errors): The model's generation process breaks down, causing it to repeat the same text, calculations, or code snippets endlessly without making progress, failing to produce a complete proof. This is triggered by a mathematical error, but is a distinct behavior exhibited by the model. Errors are classified as M-errors when a genuine proof attempt follows NL reasoning, while L-errors are loops of text that do not lead to a coherent Lean proof attempt.
+    S: Syntax and Compilation Errors: The model produces syntactically invalid Lean code (e.g., unexpected tokens, incorrect function calls, malformed expressions) that fails to compile.
+    IP: Incorrect Proof Strategy/Logic Translation Failure: The NL proof is correct, but the formal Lean proof strategy is fundamentally wrong to implement the NL proof, and the model fails to translate the sound NL proof into a working Lean proof.
+    U: Tactic Failure/Unsolved Goals: The overall proof strategy is plausible, but a specific tactic (linarith, rewrite, rfl, omega) fails because its preconditions are not met, the goal is outside its capabilities, or necessary lemmas are missing.
+    
+    Based on the six error types above, identify which is most detrimental to the proof attempt, and respond with the one or two-letter code for that error type. The last word in your response should be the identified error category code (T, M, L, S, IP, U).
+    """
+    
+    print("  -> Calling Gemini Pro API...")
+    try:
+        response = model.generate_content(prompt)
+        words = response.text.strip().split()
+        
+        if not words:
+            print("  -> Gemini returned an empty response.")
+            return None
+            
+        last_word = words[-1]
+        
+        last_word = last_word.strip('.,;?!')
+        
+        return last_word
+
+    except Exception as e:
+        print(f"  -> An error occurred while calling the Gemini API: {e}")
+        return None
+
+
+def process_json_file(filepath: str):
+
+    if not os.path.exists(filepath):
+        print(f"Error: File '{filepath}' not found.")
+        return
+
+    print(f"Starting to process file '{filepath}'...\n" + "="*40)
+
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            all_objects = json.load(f)
+
+        if not isinstance(all_objects, list):
+            print("Error: JSON file does not contain a list of objects.")
+            print("The file should start with '[' and end with ']'.")
+            return
+
+    except json.JSONDecodeError:
+        print(f"Error: Could not decode JSON from '{filepath}'. Check for syntax errors.")
+        return
+    except Exception as e:
+        print(f"An unexpected error occurred while reading file '{filepath}': {e}")
+        return
+
+    for i, problem_obj in enumerate(all_objects):
+        if not isinstance(problem_obj, dict):
+            print(f"Warning: Item at index {i} is not a JSON object. Skipping.")
+            continue
+
+        problem_name = problem_obj.get("problem_name")
+        status = problem_obj.get("status")
+
+        print(f"Processing '{problem_name}' (Object {i+1}/{len(all_objects)})...")
+
+        if status == "success":
+            print("  - Status: SUCCESS. Moving to next object.\n")
+            continue
+        else:
+            print(f"  - Status: {status}. Taking action.")
+            suggested_fix = call_gemini_for_fix(problem_obj)
+            
+            if suggested_fix:
+                print(f"  -> Gemini's suggested fix (last word): '{suggested_fix}'\n")
+            else:
+                print("  -> Could not get a suggestion from Gemini.\n")
+
+process_json_file(lean_eval_output_file)

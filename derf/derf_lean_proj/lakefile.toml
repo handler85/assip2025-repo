@@ -1,0 +1,10 @@
+name = "derf_lean_proj"
+version = "0.1.0"
+defaultTargets = ["derf_lean_proj"]
+
+[[lean_lib]]
+name = "DerfLeanProj"
+
+[[lean_exe]]
+name = "derf_lean_proj"
+root = "Main"
