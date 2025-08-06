@@ -31,11 +31,212 @@ from tqdm import tqdm
 import concurrent.futures
 import sys
 import google.generativeai as genai
-torch.manual_seed(30)
+torch.manual_seed(42)
 
-model_id = "deepseek-ai/DeepSeek-Prover-V2-7B" 
-json_file_path = "test_prob.jsonl" 
-output_file_path = "deepseek_derf_generated_proofs.json"  
+MODEL_ID = "deepseek-ai/DeepSeek-Prover-V2-7B" 
+PROBLEMS_FILE_PATH = "test_prob.jsonl" 
+OUTPUT_FILE_PATH = "deepseek_derf_generated_proofs.json"  
+LEAN_PROJECT_PATH = ""
+TEMP_LEAN_DIR = os.path.join(LEAN_PROJECT_PATH, "temp_proofs")
+MAX_ATTEMPTS_PER_PROBLEM = 5
+EVALUATION_TIMEOUT = 120
+# export GOOGLE_API_KEY="[key]"
+try:
+    api_key = os.environ["GOOGLE_API_KEY"]
+    genai.configure(api_key=api_key)
+except KeyError:
+    print("ERROR: GOOGLE_API_KEY environment variable not set.")
+    print("Please set the environment variable and try again.")
+    sys.exit(1) 
+
+def create_initial_prompt(problem: Dict[str, Any]) -> str:
+    formal_statement = f"""
+{problem.get('formal_statement')}  sorry
+""".strip()
+    prompt_template = """
+Complete the following Lean 4 code:
+```lean4
+{}
+```
+Before producing the Lean 4 code to formally prove the given theorem, provide a detailed proof plan outlining the main proof steps and strategies.
+The plan should highlight key ideas, intermediate lemmas, and proof structures that will guide the construction of the final formal proof.
+""".strip()
+    return prompt_template.format(formal_statement)
+def create_reprompt(error_category: str, failed_proof: str, error_message: str) -> str:
+    prompts = {}
+    instruction = prompts.get(error_category)
+    return f'''
+    The previous proof attempt failed.
+    Error message:
+    {error_message}
+    Failed proof code:
+    {failed_proof}
+    INSTRUCTION: {instruction}
+    Please provide the complete, corrected Lean4 proof.
+    '''.strip()
+
+def save_and_prepare_lean_file(problem_name: str, proof_text: str, attempt:int) -> Path:
+    safe_problem_name = "".join(c for c in problem_name if c.isalnum() or c in ('_', '-')).rstrip()
+    filename = f"{safe_problem_name}attempt{attempt}.lean"
+    file_path = Path(TEMP_LEAN_DIR) / filename
+    os.makedirs(TEMP_LEAN_DIR, exist_ok=True)
+    
+       
+    full_content = f"""
+    import Mathlib
+    import Aesop
+    set_option maxHeartbeats 0
+    open BigOperators Real Nat Topology Rat
+    
+    {proof_text}
+    """    
+    file_path.write_text(full_content, encoding='utf-8')        
+    return file_path
+
+def process_lean_file(file_path: Path):
+   
+    try:
+        original_content = file_path.read_text(encoding='utf-8')
+
+        trigger_sequence = "### Complete Lean 4 Proof\n\n```lean4"
+        if trigger_sequence not in original_content:
+            return
+
+        modified_content = original_content
+
+        detailed_statement = "### Detailed"
+        if detailed_statement in modified_content:
+            modified_content = modified_content.replace(
+                detailed_statement,
+                f"/- {detailed_statement}",
+                1
+            )
+
+        replacement_sequence = "### Complete Lean 4 Proof\n\nlean4\n-/"
+        if trigger_sequence in modified_content:
+            modified_content = modified_content.replace(
+                trigger_sequence,
+                replacement_sequence,
+                1
+            )
+        else:
+            return
+
+       
+        lines = modified_content.splitlines()
+        last_line_index = -1
+        for i in range(len(lines) - 1, -1, -1):
+            if lines[i].strip():
+                last_line_index = i
+                break
+        
+        if last_line_index != -1 and lines[last_line_index].strip() == "```":
+            modified_content = "\n".join(lines[:last_line_index])
+            if modified_content:
+                modified_content += "\n"
+        file_path.write_text(modified_content, encoding='utf-8')
+
+    except Exception as e:
+        print(f"    -> ERROR: Could not process file {file_path.name}. Reason: {e}")
+
+def eval_lean_file(file_path: Path) -> Dict[str, Any]:
+    
+    with open(str(file_path), 'r', encoding='utf-8') as f:
+        proof_content = f.read()
+    
+
+    try:
+        process = subprocess.run(
+            ['lake', 'env', 'lean', str(file_path)],
+            capture_output=True,
+            text=True,
+            check=False,
+            cwd=LEAN_PROJECT_PATH,
+            timeout=EVALUATION_TIMEOUT
+        )
+
+        if process.returncode == 0:
+            anchor_line = "open BigOperators Real Nat Topology Rat"
+            
+            anchor_pos = proof_content.find(anchor_line)
+
+            is_commented_out = False
+            if anchor_pos != -1:
+                text_after_anchor = proof_content[anchor_pos + len(anchor_line):]
+                
+                if text_after_anchor.strip().startswith('/-') and proof_content.strip().endswith('-/'):
+                    is_commented_out = True
+
+            if is_commented_out:
+                return {
+                    "status": "failed",
+                    "error_message": "Error: No proof generated (stuck in repetitive loop)"
+                }
+            else:
+                return {
+                    "status": "success",
+                    "error_message": ""
+                }
+        else:
+            error_message = (process.stdout + process.stderr).strip()
+
+            return {
+                "status": "failed",
+                "error_message": error_message
+            }
+
+    except FileNotFoundError:
+        return {
+            "status": "failed",
+            "error_message": "The lake command was not found. Is Lean installed and in your PATH?"
+        }
+    except subprocess.TimeoutExpired:
+        return {
+            "status": "failed",
+            "error_message": f"Lean compilation timed out after {EVALUATION_TIMEOUT} seconds."
+        }
+    except Exception as e:
+        return {
+            "status": "failed",
+            "error_message": f"An unexpected error occurred during evaluation: {e}"
+        }
+
+
+def classify_error_with_gemini(problem_name: str, proof: str, error_message: str):
+    
+    model = genai.GenerativeModel('gemini-pro')
+
+    prompt = f"""
+    The following Lean 4 proof attempt for the problem '{problem_name}' failed.
+
+    The error message was: 
+    '{error_message}'
+
+    Here is the full generated proof:
+    --- FAILED PROOF ---
+    {proof}
+    --- END FAILED PROOF ---
+
+    Based on the error and the code, classify the primary error into ONE of the following categories:
+
+    T: Timeout: Brute-Force/Inefficient Strategy: The model defaults to computationally expensive tactics like interval_cases on large ranges or nlinarith/omega on goals that are too complex or non-linear for them to solve quickly, often resulting in a timeout or tactic failure. For this error type, the NL proof and Lean proof structure are correct, but the tactics used are inefficient.
+    M: Mathematical Error: The model makes a mathematical mistake in its initial NL reasoning (e.g., miscalculation, wrong theorem application), or fails to grasp the correct solution to the problem, which makes the subsequent Lean proof attempt futile.
+    L: Repetitive Loop/Generation Failure (subset of M-errors): The model's generation process breaks down, causing it to repeat the same text, calculations, or code snippets endlessly without making progress, failing to produce a complete proof. This is triggered by a mathematical error, but is a distinct behavior exhibited by the model. Errors are classified as M-errors when a genuine proof attempt follows NL reasoning, while L-errors are loops of text that do not lead to a coherent Lean proof attempt.
+    S: Syntax and Compilation Errors: The model produces syntactically invalid Lean code (e.g., unexpected tokens, incorrect function calls, malformed expressions) that fails to compile.
+    IP: Incorrect Proof Strategy/Logic Translation Failure: The NL proof is correct, but the formal Lean proof strategy is fundamentally wrong to implement the NL proof, and the model fails to translate the sound NL proof into a working Lean proof.
+    U: Tactic Failure/Unsolved Goals: The overall proof strategy is plausible, but a specific tactic (linarith, rewrite, rfl, omega) fails because its preconditions are not met, the goal is outside its capabilities, or necessary lemmas are missing.
+    
+    Respond with ONLY the one or two-letter code for the error type most detrimental to the proof attempt (T, M, L, S, IP, U).
+    The last word in your response should be the identified error category code.
+    """
+    try:
+        response = model.generate_content(prompt)
+        category = response.text.strip().split()[-1].strip('.,;?!')
+        return category
+    except Exception as e:
+        print(f"WARNING: Gemini API call failed: {e}")
+        return None
+    
 print("Loading model and tokenizer...")
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
@@ -218,70 +419,6 @@ extract_proofs_to_lean_files(input_json_file, output_dir)
 
 
 
-def process_lean_file(file_path: Path):
-   
-    print(f"--- Checking: {file_path.name}")
-
-    try:
-        original_content = file_path.read_text(encoding='utf-8')
-
-        trigger_sequence = "### Complete Lean 4 Proof\n\n```lean4"
-        if trigger_sequence not in original_content:
-            print("    -> Skipping: Required trigger sequence not found.")
-            return
-
-        print("    -> Found trigger sequence. Preparing modifications...")
-
-        modified_content = original_content
-
-        detailed_statement = "### Detailed"
-        if detailed_statement in modified_content:
-            modified_content = modified_content.replace(
-                detailed_statement,
-                f"/- {detailed_statement}",
-                1
-            )
-            print("    - Action: Added '/-' before '### Detailed'.")
-        else:
-            print("    - Warning: '### Detailed' not found, skipping this action.")
-
-
-       
-        replacement_sequence = "### Complete Lean 4 Proof\n\nlean4\n-/"
-        if trigger_sequence in modified_content:
-            modified_content = modified_content.replace(
-                trigger_sequence,
-                replacement_sequence,
-                1
-            )
-            print("    - Action: Modified the 'Complete Proof' code block and added '-/'.")
-        else:
-            print("    - Warning: Trigger sequence disappeared during processing. Aborting modification.")
-            return
-
-       
-        lines = modified_content.splitlines()
-        last_line_index = -1
-        for i in range(len(lines) - 1, -1, -1):
-            if lines[i].strip():
-                last_line_index = i
-                break
-        
-        if last_line_index != -1 and lines[last_line_index].strip() == "```":
-            modified_content = "\n".join(lines[:last_line_index])
-            if modified_content:
-                modified_content += "\n"
-            print("    - Action: Removed the final '```' from the end of the file.")
-        else:
-            print("    - Warning: Final '```' not found at the end of the file. Skipping this action.")
-
-
-        
-        file_path.write_text(modified_content, encoding='utf-8')
-        print("    -> SUCCESS: File has been modified and saved.")
-
-    except Exception as e:
-        print(f"    -> ERROR: Could not process file {file_path.name}. Reason: {e}")
 
 
 lean_directory = ''
@@ -319,74 +456,6 @@ def check_if_already_have(file_path, search_string):
     except FileNotFoundError:
         return False
 
-def eval_lean_file(file_path: str, lean_cmd: str, exec_path: str, timeout: int) -> Dict[str, Any]:
-    
-    problem_name = os.path.splitext(os.path.basename(file_path))[0]
-    
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            proof_content = f.read()
-    except IOError as e:
-        return {
-            "problem_name": problem_name,
-            "status": "failed",
-            "error_message": f"Error reading file: {e}",
-            "generated_proof": ""
-        }
-
-    try:
-        process = subprocess.run(
-            ['lake', 'env', 'lean', file_path],
-            capture_output=True,
-            text=True,
-            check=False,
-            cwd=exec_path,
-            timeout=timeout
-        )
-
-        if process.returncode == 0:
-            anchor_line = "open BigOperators Real Nat Topology Rat"
-            
-            anchor_pos = proof_content.find(anchor_line)
-
-            is_commented_out = False
-            if anchor_pos != -1:
-                text_after_anchor = proof_content[anchor_pos + len(anchor_line):]
-                
-                if text_after_anchor.strip().startswith('/-') and proof_content.strip().endswith('-/'):
-                    is_commented_out = True
-
-            if is_commented_out:
-                status = "failed"
-                error_message = "Error: No proof generated (stuck in repetitive loop)"
-            else:
-                status = "success"
-                error_message = ""
-        else:
-            status = "failed"
-            error_message = (process.stdout + process.stderr).strip()
-
-    except FileNotFoundError:
-        return {
-            "problem_name": problem_name,
-            "status": "failed",
-            "error_message": f"Lean command '{lean_cmd}' not found. Please ensure Lean is installed and in your system's PATH.",
-            "generated_proof": proof_content
-        }
-    except subprocess.TimeoutExpired:
-        return {
-            "problem_name": problem_name,
-            "status": "failed",
-            "error_message": f"Lean compilation timed out after {timeout} seconds.",
-            "generated_proof": proof_content
-        }
-
-    return {
-        "problem_name": problem_name,
-        "status": status,
-        "error_message": error_message,
-        "generated_proof": proof_content
-    }
 
 input_dir = ''
 lean_eval_output_file = ''
@@ -458,60 +527,8 @@ except IOError as e:
 '''
 
 
-try:
-    api_key = os.environ["GOOGLE_API_KEY"]
-    genai.configure(api_key=api_key)
-except KeyError:
-    print("ERROR: GOOGLE_API_KEY environment variable not set.")
-    print("Please set the environment variable and try again.")
-    sys.exit(1) 
 
 
-def call_gemini_for_fix(problem_data: dict) -> str | None:
-    
-    model = genai.GenerativeModel('gemini-pro')
-
-    prompt = f"""
-    The following Lean 4 proof attempt for the problem '{problem_data.get("problem_name")}' failed.
-
-    The error message was: 
-    '{problem_data.get("error_message", "No error message.")}'
-
-    Here is the full generated proof:
-    --- FAILED PROOF ---
-    {problem_data.get("generated_proof", "No proof provided.")}
-    --- END FAILED PROOF ---
-
-    Based on the error and the code, classify the error into one of the following error categories:
-
-    T: Timeout: Brute-Force/Inefficient Strategy: The model defaults to computationally expensive tactics like interval_cases on large ranges or nlinarith/omega on goals that are too complex or non-linear for them to solve quickly, often resulting in a timeout or tactic failure. For this error type, the NL proof and Lean proof structure are correct, but the tactics used are inefficient.
-    M: Mathematical Error: The model makes a mathematical mistake in its initial NL reasoning (e.g., miscalculation, wrong theorem application), or fails to grasp the correct solution to the problem, which makes the subsequent Lean proof attempt futile.
-    L: Repetitive Loop/Generation Failure (subset of M-errors): The model's generation process breaks down, causing it to repeat the same text, calculations, or code snippets endlessly without making progress, failing to produce a complete proof. This is triggered by a mathematical error, but is a distinct behavior exhibited by the model. Errors are classified as M-errors when a genuine proof attempt follows NL reasoning, while L-errors are loops of text that do not lead to a coherent Lean proof attempt.
-    S: Syntax and Compilation Errors: The model produces syntactically invalid Lean code (e.g., unexpected tokens, incorrect function calls, malformed expressions) that fails to compile.
-    IP: Incorrect Proof Strategy/Logic Translation Failure: The NL proof is correct, but the formal Lean proof strategy is fundamentally wrong to implement the NL proof, and the model fails to translate the sound NL proof into a working Lean proof.
-    U: Tactic Failure/Unsolved Goals: The overall proof strategy is plausible, but a specific tactic (linarith, rewrite, rfl, omega) fails because its preconditions are not met, the goal is outside its capabilities, or necessary lemmas are missing.
-    
-    Based on the six error types above, identify which is most detrimental to the proof attempt, and respond with the one or two-letter code for that error type. The last word in your response should be the identified error category code (T, M, L, S, IP, U).
-    """
-    
-    print("  -> Calling Gemini Pro API...")
-    try:
-        response = model.generate_content(prompt)
-        words = response.text.strip().split()
-        
-        if not words:
-            print("  -> Gemini returned an empty response.")
-            return None
-            
-        last_word = words[-1]
-        
-        last_word = last_word.strip('.,;?!')
-        
-        return last_word
-
-    except Exception as e:
-        print(f"  -> An error occurred while calling the Gemini API: {e}")
-        return None
 
 
 def process_json_file(filepath: str):
