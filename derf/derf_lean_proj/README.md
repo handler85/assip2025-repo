@@ -1,1 +1,0 @@
-# derf_lean_proj
